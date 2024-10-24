@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "857444535531",
+    "project_id": "cc-2024b-mov-gr1-dacc",
+    "storage_bucket": "cc-2024b-mov-gr1-dacc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:857444535531:android:b00c847f73b604600bc2ae",
+        "android_client_info": {
+          "package_name": "com.example.ccgr12024b_dacc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHeZZV40TvI3-rfDpzWMhChGMdOiLMrPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
