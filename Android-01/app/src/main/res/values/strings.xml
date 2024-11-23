@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">ccgr12024b_dacc</string>
+    <string name="app_name"> ccgr12024b_dacc </string>
+    <!--
+    Thursday, Novemeber 21, 2024
+    Topic: Uso de recursos
+    -->
+    <string name="saludo"> Hello Friends </string>
+    <color name="saludo_color"> #CD8915 </color>
 </resources>
