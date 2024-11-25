@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Class work
+         Condición 2: PORT EN (Inglés, Vertical) -->
+    <color name="background_color">#FF8C00</color> <!-- Fondo naranja brillante -->
+    <color name="text_color">#FFFFFF</color> <!-- Texto blanco -->
+</resources>

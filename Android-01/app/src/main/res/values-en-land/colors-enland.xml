@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Class work
+         Condición 1: LANDS EN (Inglés, Horizontal) -->
+    <color name="background_color">#1E90FF</color> <!-- Fondo azul oscuro -->
+    <color name="text_color">#FFD700</color> <!-- Texto amarillo brillante -->
+</resources>
