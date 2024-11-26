@@ -1,1 +1,1 @@
-1,James,Clear,Estadounidense,N/S,false0,2
+1,James,Clear,n/s,Estadounidense,true5
