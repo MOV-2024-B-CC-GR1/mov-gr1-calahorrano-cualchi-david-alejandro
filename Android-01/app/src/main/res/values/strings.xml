@@ -5,5 +5,5 @@
     Topic: Uso de recursos
     -->
     <string name="saludo"> Hello Friends </string>
-    <color name="saludo_color"> #CD8915 </color>
+    <color name="saludo_color">#CD8915</color>
 </resources>

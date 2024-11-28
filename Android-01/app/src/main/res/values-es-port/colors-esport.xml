@@ -2,6 +2,6 @@
 <resources>
     <!-- Class work
          Condición 4: PORT ES (Español, Vertical) -->
-    <color name="background_color">#FF4500</color> <!-- Fondo rojo vibrante -->
-    <color name="text_color">#5D0096</color> <!-- Texto amarillo -->
+<!--    <color name="background_color">#FF4500</color> &lt;!&ndash; Fondo rojo vibrante &ndash;&gt;-->
+<!--    <color name="text_color">#5D0096</color> &lt;!&ndash; Texto amarillo &ndash;&gt;-->
 </resources>

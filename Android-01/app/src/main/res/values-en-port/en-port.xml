@@ -2,5 +2,5 @@
 <resources>
     <!-- Class work
          Condición 2: PORT EN (Inglés, Vertical) -->
-    <string name="app_text">Hello, welcome to Portrait mode! (EN)</string>
+<!--    <string name="app_text">Hello, welcome to Portrait mode! (EN)</string>-->
 </resources>

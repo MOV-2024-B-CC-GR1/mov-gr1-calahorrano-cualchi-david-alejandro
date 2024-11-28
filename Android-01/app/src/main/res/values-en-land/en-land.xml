@@ -2,5 +2,5 @@
 <resources>
     <!-- Class work
          Condición 1: LANDS EN (Inglés, Horizontal) -->
-    <string name="app_text">Welcome! You're in Landscape mode. (EN)</string>
+<!--    <string name="app_text">Welcome! You're in Landscape mode. (EN)</string>-->
 </resources>

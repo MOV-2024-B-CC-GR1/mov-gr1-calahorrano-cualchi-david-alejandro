@@ -2,5 +2,5 @@
 <resources>
     <!-- Class work
          Condición 4: PORT ES (Español, Vertical) -->
-    <string name="app_text">¡Hola! Bienvenido al modo vertical. (ES)</string>
+<!--    <string name="app_text">¡Hola! Bienvenido al modo vertical. (ES)</string>-->
 </resources>

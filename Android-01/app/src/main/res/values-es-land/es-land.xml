@@ -2,5 +2,5 @@
 <resources>
     <!-- Class work
          Condición 3: LANDS ES (Español, Horizontal) -->
-    <string name="app_text">¡Hola! Estás en modo horizontal. (ES)</string>
+<!--    <string name="app_text">¡Hola! Estás en modo horizontal. (ES)</string>-->
 </resources>

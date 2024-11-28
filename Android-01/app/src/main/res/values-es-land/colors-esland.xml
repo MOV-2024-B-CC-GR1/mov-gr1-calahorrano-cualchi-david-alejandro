@@ -2,6 +2,6 @@
 <resources>
     <!-- Class work
          Condición 3: LANDS ES (Español, Horizontal) -->
-    <color name="background_color">#32CD32</color> <!-- Fondo verde brillante -->
-    <color name="text_color">#000000</color> <!-- Texto negro -->
+<!--    <color name="background_color">#32CD32</color> &lt;!&ndash; Fondo verde brillante &ndash;&gt;-->
+<!--    <color name="text_color">#000000</color> &lt;!&ndash; Texto negro &ndash;&gt;-->
 </resources>

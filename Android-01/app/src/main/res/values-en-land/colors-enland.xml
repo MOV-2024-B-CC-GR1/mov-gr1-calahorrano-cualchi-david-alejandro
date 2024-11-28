@@ -2,6 +2,6 @@
 <resources>
     <!-- Class work
          Condición 1: LANDS EN (Inglés, Horizontal) -->
-    <color name="background_color">#1E90FF</color> <!-- Fondo azul oscuro -->
-    <color name="text_color">#FFD700</color> <!-- Texto amarillo brillante -->
+<!--    <color name="background_color">#1E90FF</color> &lt;!&ndash; Fondo azul oscuro &ndash;&gt;-->
+<!--    <color name="text_color">#FFD700</color> &lt;!&ndash; Texto amarillo brillante &ndash;&gt;-->
 </resources>

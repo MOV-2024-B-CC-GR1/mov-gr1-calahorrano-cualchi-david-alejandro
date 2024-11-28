@@ -2,6 +2,6 @@
 <resources>
     <!-- Class work
          Condición 2: PORT EN (Inglés, Vertical) -->
-    <color name="background_color">#FF8C00</color> <!-- Fondo naranja brillante -->
-    <color name="text_color">#FFFFFF</color> <!-- Texto blanco -->
+<!--    <color name="background_color">#FF8C00</color> &lt;!&ndash; Fondo naranja brillante &ndash;&gt;-->
+<!--    <color name="text_color">#FFFFFF</color> &lt;!&ndash; Texto blanco &ndash;&gt;-->
 </resources>
