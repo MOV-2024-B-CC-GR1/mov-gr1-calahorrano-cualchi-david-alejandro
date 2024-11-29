@@ -5,23 +5,23 @@
     android:id="@+id/textView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:ignore="DuplicateIds">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/saludo"
-        android:textColor="@color/saludo_color"
-        android:textColorLink="@color/background_color"
+        android:textColor="#E65100"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.764"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.487" />
+        app:layout_constraintVertical_bias="0.487"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/btn_ciclo_vida"
@@ -30,6 +30,16 @@
         android:text="Ciclo de Vida"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        tools:layout_editor_absoluteX="35dp" />
+        tools:layout_editor_absoluteX="35dp"
+        tools:ignore="HardcodedText,MissingConstraints,VisualLintOverlap" />
+
+    <Button
+        android:id="@+id/btn_ir_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List View"
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="404dp"
+        tools:ignore="HardcodedText,MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
