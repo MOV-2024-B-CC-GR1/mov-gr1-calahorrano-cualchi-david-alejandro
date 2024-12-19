@@ -6,4 +6,14 @@
     -->
     <string name="saludo"> Hello Friends </string>
     <color name="saludo_color">#CD8915</color>
+
+    <!--
+    Thursday, December 19, 2024
+    Topic:
+    -->
+    <string-array name="string_array_opciones_dialogo">
+        <item> Lunes </item>
+        <item> Martes </item>
+        <item> Miercoles </item>
+    </string-array>
 </resources>
