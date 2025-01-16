@@ -92,8 +92,7 @@ class BListView : AppCompatActivity() {
         builder.setMultiChoiceItems(
             opciones,
             seleccionPrevia
-        ) { dialog,
-            which,
+        ) { dialog,            which,
             isChecked ->
             mostrarSnackbar("${which} $isChecked")
         }
