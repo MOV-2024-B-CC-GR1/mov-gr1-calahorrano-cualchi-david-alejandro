@@ -69,6 +69,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        // Inicializar BDD
+        EBaseDeDatos.tablaEntrenador = ESqliteHelperEntrenador(this)
+
         // Thursday, 28th November, 2024. Topic: Introducción a la creación de Interfaces Básicas en Android Studio
         val botonCicloVida = findViewById<Button>(R.id.btn_ciclo_vida);
         botonCicloVida.setOnClickListener {
@@ -105,11 +108,11 @@ class MainActivity : AppCompatActivity() {
                 callbackContenidoIntentExplicito.launch(intentExplicito)
             }
 
-//        val botonIrSqlite = findViewById<Button>(R.id.btn_sqlite)
-//        botonIrSqlite
-//            .setOnClickListener {
-//                irActividad(ECrudEntrenador::class.java)
-//            }
+        val botonIrSqlite = findViewById<Button>(R.id.btn_sqlite)
+        botonIrSqlite
+            .setOnClickListener {
+                irActividad(ECrudEntrenador::class.java)
+            }
     }
 
     fun irActividad(clase: Class<*>){

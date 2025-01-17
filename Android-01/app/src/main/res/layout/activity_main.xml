@@ -17,10 +17,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.764"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.487"
+        app:layout_constraintVertical_bias="0.482"
         tools:ignore="TextContrastCheck" />
 
     <Button
@@ -30,17 +30,18 @@
         android:text="Ciclo de Vida"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        tools:layout_editor_absoluteX="35dp"
-        tools:ignore="HardcodedText,MissingConstraints,VisualLintOverlap" />
+        app:layout_constraintVertical_bias="0.496"
+        tools:ignore="HardcodedText,MissingConstraints,VisualLintOverlap"
+        tools:layout_editor_absoluteX="1dp" />
 
     <Button
         android:id="@+id/btn_ir_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="List View"
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="404dp"
-        tools:ignore="HardcodedText,MissingConstraints" />
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="421dp" />
 
     <Button
         android:id="@+id/btn_ir_intent_implicito"
@@ -61,5 +62,16 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_ciclo_vida"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="@+id/btn_ciclo_vida" />
+
+    <Button
+        android:id="@+id/btn_sqlite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SQLite"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.481" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
