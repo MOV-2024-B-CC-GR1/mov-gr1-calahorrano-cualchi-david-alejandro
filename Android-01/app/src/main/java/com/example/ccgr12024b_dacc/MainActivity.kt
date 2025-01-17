@@ -80,6 +80,37 @@ class MainActivity : AppCompatActivity() {
         botonIrListView.setOnClickListener{
             irActividad(BListView::class.java)
         }
+
+        val botonImplicito = findViewById<Button>(R.id.btn_ir_intent_implicito)
+        botonImplicito
+            .setOnClickListener {
+                val intentConRespuesta = Intent(
+                    Intent.ACTION_PICK,
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+                )
+                callbackContenidoIntentImplicito.launch(intentConRespuesta)
+            }
+
+        val botonExplicito = findViewById<Button>(R.id.btn_ir_intent_explicito)
+        botonExplicito
+            .setOnClickListener {
+                val intentExplicito = Intent(
+                    this, CIntentExplicitoParametros::class.java
+                )
+                intentExplicito.putExtra("nombre", "David")
+                intentExplicito.putExtra("apellido", "Calahorrano")
+                intentExplicito.putExtra("edad", 34)
+//                intentExplicito.putExtra("entrenador",
+                    BEntrenador(1,"Adrian","Ejemplo")
+                )
+                callbackContenidoIntentExplicito.launch(intentExplicito)
+            }
+
+//        val botonIrSqlite = findViewById<Button>(R.id.btn_sqlite)
+//        botonIrSqlite
+//            .setOnClickListener {
+//                irActividad(ECrudEntrenador::class.java)
+//            }
     }
 
     fun irActividad(clase: Class<*>){

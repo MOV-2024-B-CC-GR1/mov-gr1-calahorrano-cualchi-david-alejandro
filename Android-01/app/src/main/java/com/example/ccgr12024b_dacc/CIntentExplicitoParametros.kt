@@ -16,5 +16,10 @@ class CIntentExplicitoParametros : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val nombre = intent.getStringExtra("nombre")
+        val apellido = intent.getStringExtra("apellido")
+        val edad = intent.getStringExtra("edad", 0)
+
     }
 }
