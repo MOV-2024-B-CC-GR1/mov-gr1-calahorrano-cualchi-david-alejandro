@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gestión de Libros y Autores"
-            android:textSize="26sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:fontFamily="sans-serif-medium"
             android:textColor="#FFFFFF"
@@ -47,10 +47,11 @@
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:text="Ver Autores"
+            android:textSize="20sp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#007BFF"
             android:elevation="4dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="24dp" />
 
         <!-- Botón para crear un autor -->
         <Button
@@ -58,21 +59,46 @@
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:text="Crear Autor"
+            android:textSize="20sp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#28A745"
             android:elevation="4dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="24dp" />
+
+        <!-- Botón para ver libros por autor -->
+        <Button
+            android:id="@+id/btn_ver_libros_por_autor"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:text="Ver Libros por Autor"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#FFC107"
+            android:elevation="4dp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Botón para crear un libro -->
+        <Button
+            android:id="@+id/btn_crear_libro"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Crear Libro"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#6F42C1"
+            android:elevation="4dp"
+            android:layout_marginBottom="24dp" />
 
         <!-- Botón para salir de la aplicación -->
         <Button
             android:id="@+id/btn_salir"
-            android:layout_width="240dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Salir"
+            android:textSize="20sp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#DC3545"
-            android:elevation="4dp" />
-
+            android:elevation="4dp"
+            android:layout_marginBottom="24dp" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
