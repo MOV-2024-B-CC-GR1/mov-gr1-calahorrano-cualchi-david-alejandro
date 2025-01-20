@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">02-Deber1</string>
+<!--    <string name="app_name">02-Deber1</string>-->
+    <string name="app_name">Gestión de Libros y Autores</string>
+    <string name="ver_autores">Ver Autores</string>
+    <string name="crear_autor">Crear Autor</string>
+    <string name="salir">Salir</string>
 </resources>

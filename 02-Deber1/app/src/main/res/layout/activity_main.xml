@@ -1,19 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo_biblioteca"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Fondo con ImageView -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_biblioteca"
+        android:scaleType="centerCrop"
+        android:contentDescription="Fondo de biblioteca"
+        android:alpha="0.7" />
+
+    <!-- Contenedor para centrar todo verticalmente -->
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!. Soy David"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="#88000000"> <!-- Fondo translúcido negro -->
+
+        <!-- Título de la aplicación -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Libros y Autores"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Botón para ver autores -->
+        <Button
+            android:id="@+id/btn_ver_autores"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:text="Ver Autores"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#007BFF"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Botón para crear un autor -->
+        <Button
+            android:id="@+id/btn_crear_autor"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:text="Crear Autor"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#28A745"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Botón para salir de la aplicación -->
+        <Button
+            android:id="@+id/btn_salir"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:text="Salir"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#DC3545"
+            android:elevation="4dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
