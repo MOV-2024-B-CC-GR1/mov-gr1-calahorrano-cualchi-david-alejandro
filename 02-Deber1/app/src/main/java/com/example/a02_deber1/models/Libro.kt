@@ -6,5 +6,5 @@ data class Libro(
     val anioPublicacion: Int,
     val genero: String,
     val precio: Double,
-    val autores: List<Autor> // Relación UNO a MUCHOS
+    val idAutor: Int // Relación UNO a MUCHOS (Libro pertenece a un autor)
 )

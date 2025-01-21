@@ -7,5 +7,5 @@ data class Autor(
     val nacionalidad: String,
     val fechaNacimiento: String,
     val sigueVivo: Boolean,
-    var cantidadLibros: Int = 0 // Inicia en 0 por defecto
+    val libros: MutableList<Libro> = mutableListOf() // Relación UNO a MUCHOS
 )
