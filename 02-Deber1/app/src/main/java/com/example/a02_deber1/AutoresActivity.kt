@@ -81,6 +81,11 @@ class AutoresActivity : AppCompatActivity() {
         btnEdit.setOnClickListener {
             val intent = Intent(this, FormularioAutorActivity::class.java)
             intent.putExtra("idAutor", autor.idAutor)
+            intent.putExtra("nombre", autor.nombre)
+            intent.putExtra("apellido", autor.apellido)
+            intent.putExtra("nacionalidad", autor.nacionalidad)
+            intent.putExtra("fechaNacimiento", autor.fechaNacimiento)
+            intent.putExtra("sigueVivo", autor.sigueVivo)
             startActivity(intent)
         }
 
