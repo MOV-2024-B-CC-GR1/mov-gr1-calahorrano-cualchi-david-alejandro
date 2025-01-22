@@ -1,20 +1,25 @@
 package com.example.a02_deber1
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.a02_deber1.R.id.tvAuthorName
+import com.example.a02_deber1.database.AutorDAO
+import com.example.a02_deber1.models.Autor
 
 class AutoresActivity : AppCompatActivity() {
     private lateinit var authorsContainer: LinearLayout
     private lateinit var btnAddAuthor: Button
-    private var authorCount = 0 // Contador para los autores dinámicos
+    private val autorDAO by lazy { AutorDAO(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,27 +37,82 @@ class AutoresActivity : AppCompatActivity() {
         authorsContainer = findViewById(R.id.authorsContainer)
         btnAddAuthor = findViewById(R.id.btnAddAuthor)
 
-        // Agregar autores iniciales
-        addAuthor("Gabriel García Márquez")
-        addAuthor("Isabel Allende")
+        // Cargar autores desde SQLite
+        loadAuthors()
 
-        // Configurar el botón para agregar un nuevo autor
+        // Configurar botón para agregar autores
         btnAddAuthor.setOnClickListener {
-            authorCount++
-            addAuthor("Nuevo Autor $authorCount")
+            val intent = Intent(this, FormularioAutorActivity::class.java)
+            startActivity(intent)
         }
     }
 
-    private fun addAuthor(authorName: String) {
-        // Inflar el diseño del autor desde el archivo author_item.xml
+    private fun loadAuthors() {
+        // Limpiar el contenedor antes de recargar
+        authorsContainer.removeAllViews()
+
+        val autores = autorDAO.obtenerTodosLosAutores()
+        if (autores.isEmpty()) {
+            Toast.makeText(this, "No hay autores registrados.", Toast.LENGTH_SHORT).show()
+        } else {
+            autores.forEach { autor ->
+                addAuthorView(autor)
+            }
+        }
+    }
+
+    private fun addAuthorView(autor: Autor) {
+        // Inflar el diseño de cada autor
         val inflater = LayoutInflater.from(this)
         val authorView = inflater.inflate(R.layout.author_item, authorsContainer, false)
 
-        // Configurar el nombre del autor
+        // Configurar los datos del autor
         val tvAuthorName = authorView.findViewById<TextView>(R.id.tvAuthorName)
-        tvAuthorName.text = "${authorCount}. $authorName"
+        val tvAuthorDetails = authorView.findViewById<TextView>(R.id.tvAuthorDetails)
+        val btnEdit = authorView.findViewById<Button>(R.id.btnEdit)
+        val btnDelete = authorView.findViewById<Button>(R.id.btnDelete)
+        val btnBooks = authorView.findViewById<Button>(R.id.btnBooks)
 
-        // Agregar la vista inflada al contenedor de autores
+        // Configurar nombre y detalles del autor
+        tvAuthorName.text = "${autor.nombre} ${autor.apellido}"
+        tvAuthorDetails.text = "Nacionalidad: ${autor.nacionalidad} / Fecha Nac: ${autor.fechaNacimiento} / Sigue Vivo: ${if (autor.sigueVivo) "Sí" else "No"}"
+
+        // Botón Editar
+        btnEdit.setOnClickListener {
+            val intent = Intent(this, FormularioAutorActivity::class.java)
+            intent.putExtra("idAutor", autor.idAutor)
+            startActivity(intent)
+        }
+
+        // Botón Eliminar
+        btnDelete.setOnClickListener {
+            // Crear y mostrar un diálogo de confirmación
+            val dialog = AlertDialog.Builder(this)
+                .setTitle("Eliminar Autor")
+                .setMessage("¿Estás seguro de que deseas eliminar a ${autor.nombre} ${autor.apellido}? Esta acción no se puede deshacer.")
+                .setPositiveButton("Sí") { _, _ ->
+                    // Eliminar el autor si el usuario confirma
+                    autorDAO.borrarAutorPorId(autor.idAutor)
+                    Toast.makeText(this, "Autor eliminado.", Toast.LENGTH_SHORT).show()
+                    loadAuthors()
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    // Cerrar el diálogo si el usuario cancela
+                    dialog.dismiss()
+                }
+                .create()
+
+            dialog.show()
+        }
+
+        // Botón Libros
+        btnBooks.setOnClickListener {
+            val intent = Intent(this, LibrosActivity::class.java)
+            intent.putExtra("idAutor", autor.idAutor)
+            startActivity(intent)
+        }
+
+        // Agregar la vista inflada al contenedor
         authorsContainer.addView(authorView)
     }
 }

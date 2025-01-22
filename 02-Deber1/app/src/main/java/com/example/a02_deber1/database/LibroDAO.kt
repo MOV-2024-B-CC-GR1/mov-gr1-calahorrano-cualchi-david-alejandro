@@ -8,6 +8,7 @@ import com.example.a02_deber1.models.Libro
 class LibroDAO(context: Context) {
     private val dbHelper = DatabaseHelper(context)
 
+    // Método para insertar un libro
     fun insertarLibro(libro: Libro): Long {
         val db: SQLiteDatabase = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -20,6 +21,7 @@ class LibroDAO(context: Context) {
         return db.insert(DatabaseHelper.TABLE_LIBRO, null, values)
     }
 
+    // Método para obtener todos los libros de un autor
     fun obtenerLibrosPorAutor(idAutor: Int): List<Libro> {
         val db: SQLiteDatabase = dbHelper.readableDatabase
         val cursor = db.query(
@@ -49,5 +51,17 @@ class LibroDAO(context: Context) {
 
         cursor.close()
         return libros
+    }
+
+    // Método para borrar un libro por ID
+    fun borrarLibroPorId(idLibro: Int): Int {
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        return db.delete(DatabaseHelper.TABLE_LIBRO, "idLibro = ?", arrayOf(idLibro.toString()))
+    }
+
+    // Método para borrar todos los libros de un autor
+    fun borrarLibrosPorAutor(idAutor: Int): Int {
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        return db.delete(DatabaseHelper.TABLE_LIBRO, "idAutor = ?", arrayOf(idAutor.toString()))
     }
 }
