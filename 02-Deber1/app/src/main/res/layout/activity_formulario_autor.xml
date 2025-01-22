@@ -1,10 +1,201 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F9F9F9"
     tools:context=".FormularioAutorActivity">
+
+    <!-- Fondo con ImageView -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_editar"
+        android:scaleType="centerCrop"
+        android:contentDescription="Fondo de editar"
+        android:alpha="0.6" />
+
+    <LinearLayout
+        android:id="@+id/formContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:padding="24dp"
+        android:elevation="8dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:alpha="0.95"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Título del formulario -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Formulario de Autor"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Línea separadora -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Campo Nombre -->
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre:"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Escribe el nombre"
+            android:padding="12dp"
+            android:textColor="#333333"
+            android:textColorHint="#AAAAAA"
+            android:backgroundTint="#CCCCCC"
+            android:layout_marginBottom="16dp"
+            android:background="@android:drawable/editbox_background" />
+
+        <!-- Campo Apellido -->
+        <TextView
+            android:id="@+id/tvApellido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apellido:"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etApellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Escribe el apellido"
+            android:padding="12dp"
+            android:textColor="#333333"
+            android:textColorHint="#AAAAAA"
+            android:backgroundTint="#CCCCCC"
+            android:layout_marginBottom="16dp"
+            android:background="@android:drawable/editbox_background" />
+
+        <!-- Campo Nacionalidad -->
+        <TextView
+            android:id="@+id/tvNacionalidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nacionalidad:"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etNacionalidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Escribe la nacionalidad"
+            android:padding="12dp"
+            android:textColor="#333333"
+            android:textColorHint="#AAAAAA"
+            android:backgroundTint="#CCCCCC"
+            android:layout_marginBottom="16dp"
+            android:background="@android:drawable/editbox_background" />
+
+        <!-- Campo Fecha de Nacimiento -->
+        <TextView
+            android:id="@+id/tvFechaNac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha Nac.:"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etFechaNac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="DD/MM/AAAA"
+            android:padding="12dp"
+            android:textColor="#333333"
+            android:textColorHint="#AAAAAA"
+            android:backgroundTint="#CCCCCC"
+            android:layout_marginBottom="16dp"
+            android:background="@android:drawable/editbox_background" />
+
+        <!-- Campo Sigue Vivo -->
+        <TextView
+            android:id="@+id/tvSigueVivo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sigue Vivo:"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/rgSigueVivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+            <RadioButton
+                android:id="@+id/rbSi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sí"
+                android:textColor="#333333" />
+            <RadioButton
+                android:id="@+id/rbNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                android:textColor="#333333"
+                android:layout_marginStart="16dp" />
+        </RadioGroup>
+
+        <!-- Botones Guardar y Cancelar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnGuardar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="#6200EE"
+                android:padding="12dp"
+                android:text="Guardar"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancelar"
+                android:padding="12dp"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#6200EE"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
