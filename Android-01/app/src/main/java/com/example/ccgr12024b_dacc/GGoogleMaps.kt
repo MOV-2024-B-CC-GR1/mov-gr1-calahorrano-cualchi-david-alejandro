@@ -66,6 +66,10 @@ class GGoogleMaps : AppCompatActivity() {
             googleMap -> with(googleMap){
                 mapa = googleMap
                 establecerConfiguracionMapa()
+                moverQuicentro()
+                anadirPoliLinea()
+                anadirPoligono()
+                escucharListeners()
             }
         }
     }
