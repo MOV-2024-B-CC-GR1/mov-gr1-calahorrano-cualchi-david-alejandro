@@ -15,6 +15,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolygonOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.snackbar.Snackbar
 
 class GGoogleMaps : AppCompatActivity() {
@@ -78,6 +80,60 @@ class GGoogleMaps : AppCompatActivity() {
             uiSettings.isZoomControlsEnabled = true
         }
     }
+
+    fun moverQuicentro() {
+        val quicentro = LatLng(-0.176125, -78.480208)
+        val titulo = "Quicentro"
+        val marcadorQuicentro = anadirMarcador(quicentro, titulo)
+        marcadorQuicentro.tag = "Quicentro"
+        moverCamaraConZoom(quicentro)
+    }
+
+    fun anadirPoliLinea() {
+        with(mapa) {
+            val poliLinea = mapa.addPolyline(PolylineOptions().clickable(true)
+                .add(
+                    LatLng(-0.17791267925471754, -78.48185816127831),
+                    LatLng(-0.18019791013168018, -78.48539867691878),
+                    LatLng(-0.1822149211841061, -78.48320999452285)
+                )
+            )
+            poliLinea.tag = "Linea-1"
+        }
+    }
+
+    fun anadirPoligono() {
+        with(mapa) {
+            val poligono = mapa.addPolygon(PolygonOptions().clickable(true)
+                .add(
+                    LatLng(-0.17810579736798682, -78.48025956482248),
+                    LatLng(-0.18047685848208925, -78.47937980033),
+                    LatLng(-0.17664668268438008, -78.4796694788824)
+                )
+            )
+            poligono.tag = "Poligono-1"
+        }
+    }
+
+    fun escucharListeners(){
+        mapa.setOnPolygonClickListener {
+            mostrarSnackbar("setOnPolygonClickListener ${it.tag}")
+        }
+
+        mapa.setOnPolylineClickListener {
+            mostrarSnackbar("setOnPolylineClickListener ${it.tag}")
+        }
+
+        mapa.setOnMarkerClickListener {
+            mostrarSnackbar("setOnMarkerClickListener ${it.tag}")
+            return@setOnMarkerClickListener true
+        }
+
+        mapa.setOnCameraIdleListener { mostrarSnackbar("setOnCameraIdleListener") }
+        mapa.setOnCameraMoveListener { mostrarSnackbar("setOnCameraMoveListener") }
+        mapa.setOnCameraMoveStartedListener { mostrarSnackbar("setOnCameraMoveStartedListener") }
+    }
+
     fun moverCamaraConZoom(latLng: LatLng, zoom: Float = 17f){
         mapa.moveCamera(
             CameraUpdateFactory
