@@ -1,5 +1,6 @@
 package com.example.ccgr12024b_dacc
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -123,6 +125,12 @@ class MainActivity : AppCompatActivity() {
         botonGMaps
             .setOnClickListener {
                 irActividad(GGoogleMaps::class.java)
+            }
+
+        val botonAuth = findViewById<Button>(R.id.btn_intent_firebase_ui)
+        botonAuth
+            .setOnClickListener {
+                irActividad(HFirebaseUIAuth::class.java)
             }
     }
 
