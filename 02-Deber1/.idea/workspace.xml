@@ -20,6 +20,11 @@
           <theme>@style/Theme._02Deber1</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_hfirebase_uiauth.xml">
+        <config>
+          <theme>@style/Theme._02Deber1</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_libros.xml">
         <config>
           <theme>@style/Theme._02Deber1</theme>
