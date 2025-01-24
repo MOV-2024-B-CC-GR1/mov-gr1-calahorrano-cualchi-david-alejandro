@@ -43,7 +43,8 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
+    // implementation(libs.androidx.core.ktx)
+    implementation(libs.firebase.ui.auth)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
