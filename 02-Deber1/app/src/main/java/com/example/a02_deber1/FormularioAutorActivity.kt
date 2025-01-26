@@ -16,6 +16,7 @@ import com.example.a02_deber1.models.Autor
 class FormularioAutorActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     private lateinit var autorDAO: AutorDAO
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,29 +41,24 @@ class FormularioAutorActivity : AppCompatActivity() {
 
         // Configuración del botón Guardar
         btnGuardar.setOnClickListener {
-            val nombre = etNombre.text.toString()
-            val apellido = etApellido.text.toString()
-            val nacionalidad = etNacionalidad.text.toString()
-            val fechaNacimiento = etFechaNacimiento.text.toString()
-            val sigueVivo = rbSigueVivoSi.isChecked
+            if (!validarCampo(etNombre, "El nombre es obligatorio.") ||
+                !validarCampo(etApellido, "El apellido es obligatorio.") ||
+                !validarCampo(etNacionalidad, "La nacionalidad es obligatoria.") ||
+                !validarCampo(etFechaNacimiento, "La fecha de nacimiento es obligatoria.")
+            ) return@setOnClickListener
 
-            // Validar los campos requeridos
-            if (nombre.isEmpty() || apellido.isEmpty()) {
-                Toast.makeText(this, "Nombre y Apellido son obligatorios.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            // Crear un objeto Autor y guardarlo en la base de datos
             val nuevoAutor = Autor(
                 idAutor = 0,
-                nombre = nombre,
-                apellido = apellido,
-                nacionalidad = nacionalidad,
-                fechaNacimiento = fechaNacimiento,
-                sigueVivo = sigueVivo
+                nombre = etNombre.text.toString(),
+                apellido = etApellido.text.toString(),
+                nacionalidad = etNacionalidad.text.toString(),
+                fechaNacimiento = etFechaNacimiento.text.toString(),
+                sigueVivo = rbSigueVivoSi.isChecked
             )
+
             val id = autorDAO.insertarAutor(nuevoAutor)
 
+            // Aquí va el fragmento de código mencionado
             if (id > 0) {
                 Toast.makeText(this, "Autor guardado con éxito.", Toast.LENGTH_SHORT).show()
                 finish() // Cierra la actividad después de guardar
@@ -73,7 +69,17 @@ class FormularioAutorActivity : AppCompatActivity() {
 
         // Configuración del botón Cancelar
         btnCancelar.setOnClickListener {
-            finish() // Cierra la actividad sin realizar cambios
+            finish()
+        }
+    }
+
+    private fun validarCampo(campo: EditText, mensajeError: String): Boolean {
+        return if (campo.text.toString().isBlank()) {
+            campo.error = mensajeError
+            campo.requestFocus()
+            false
+        } else {
+            true
         }
     }
 }

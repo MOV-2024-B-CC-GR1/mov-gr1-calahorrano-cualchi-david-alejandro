@@ -44,7 +44,8 @@ class AutoresActivity : AppCompatActivity() {
         // Acción del botón "+ Agregar Autor"
         val btnAddAuthor = findViewById<Button>(R.id.btnAddAuthor)
         btnAddAuthor.setOnClickListener {
-            addAuthor()
+            val intent = Intent(this, FormularioAutorActivity::class.java)
+            startActivity(intent)
         }
 
         // Configurar el botón "Regresar"
@@ -52,6 +53,11 @@ class AutoresActivity : AppCompatActivity() {
         btnBack.setOnClickListener {
             finish() // Finaliza la actividad actual y regresa a la anterior
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        cargarAutores() // Recargar la lista de autores al regresar
     }
 
     private fun cargarAutores() {
