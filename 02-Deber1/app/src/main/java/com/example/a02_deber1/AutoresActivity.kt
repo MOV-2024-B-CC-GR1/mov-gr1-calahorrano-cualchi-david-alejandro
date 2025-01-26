@@ -1,5 +1,6 @@
 package com.example.a02_deber1
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.example.a02_deber1.database.AutorDAO
 import com.example.a02_deber1.models.Autor
 
 class AutoresActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
