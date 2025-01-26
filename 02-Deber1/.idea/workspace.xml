@@ -20,11 +20,6 @@
           <theme>@style/Theme._02Deber1</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_hfirebase_uiauth.xml">
-        <config>
-          <theme>@style/Theme._02Deber1</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_libros.xml">
         <config>
           <theme>@style/Theme._02Deber1</theme>
@@ -53,7 +48,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03ce7239-440f-4cd7-ac17-1f91c7c67d22" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Android-01/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Android-01/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/AutorAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/AutoresActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/AutoresActivity.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -48,16 +48,20 @@ class AutoresActivity : AppCompatActivity() {
     }
 
     private fun loadAuthors() {
-        // Limpiar el contenedor antes de recargar
-        authorsContainer.removeAllViews()
+        try {
+            // Limpiar el contenedor antes de recargar
+            authorsContainer.removeAllViews()
 
-        val autores = autorDAO.obtenerTodosLosAutores()
-        if (autores.isEmpty()) {
-            Toast.makeText(this, "No hay autores registrados.", Toast.LENGTH_SHORT).show()
-        } else {
-            autores.forEach { autor ->
-                addAuthorView(autor)
+            val autores = autorDAO.obtenerTodosLosAutores()
+            if (autores.isEmpty()) {
+                Toast.makeText(this, "No hay autores registrados.", Toast.LENGTH_SHORT).show()
+            } else {
+                autores.forEach { autor ->
+                    addAuthorView(autor)
+                }
             }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error al cargar autores: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -91,18 +95,19 @@ class AutoresActivity : AppCompatActivity() {
 
         // Botón Eliminar
         btnDelete.setOnClickListener {
-            // Crear y mostrar un diálogo de confirmación
             val dialog = AlertDialog.Builder(this)
                 .setTitle("Eliminar Autor")
                 .setMessage("¿Estás seguro de que deseas eliminar a ${autor.nombre} ${autor.apellido}? Esta acción no se puede deshacer.")
                 .setPositiveButton("Sí") { _, _ ->
-                    // Eliminar el autor si el usuario confirma
-                    autorDAO.borrarAutorPorId(autor.idAutor)
-                    Toast.makeText(this, "Autor eliminado.", Toast.LENGTH_SHORT).show()
-                    loadAuthors()
+                    try {
+                        autorDAO.borrarAutorPorId(autor.idAutor)
+                        Toast.makeText(this, "Autor eliminado.", Toast.LENGTH_SHORT).show()
+                        loadAuthors()
+                    } catch (e: Exception) {
+                        Toast.makeText(this, "Error al eliminar autor: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
                 .setNegativeButton("No") { dialog, _ ->
-                    // Cerrar el diálogo si el usuario cancela
                     dialog.dismiss()
                 }
                 .create()
