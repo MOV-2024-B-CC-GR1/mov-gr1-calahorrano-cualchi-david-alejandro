@@ -87,16 +87,16 @@ class AutorDAO(context: Context) {
     fun actualizarAutor(autor: Autor): Int {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
-            put(DatabaseHelper.COLUMN_NOMBRE, autor.nombre)
-            put(DatabaseHelper.COLUMN_APELLIDO, autor.apellido)
-            put(DatabaseHelper.COLUMN_NACIONALIDAD, autor.nacionalidad)
-            put(DatabaseHelper.COLUMN_FECHA_NACIMIENTO, autor.fechaNacimiento)
-            put(DatabaseHelper.COLUMN_SIGUE_VIVO, if (autor.sigueVivo) 1 else 0)
+            put("nombre", autor.nombre)
+            put("apellido", autor.apellido)
+            put("nacionalidad", autor.nacionalidad)
+            put("fechaNacimiento", autor.fechaNacimiento)
+            put("sigueVivo", if (autor.sigueVivo) 1 else 0)
         }
         return db.update(
             DatabaseHelper.TABLE_AUTOR,
             values,
-            "${DatabaseHelper.COLUMN_ID_AUTOR} = ?",
+            "idAutor = ?",
             arrayOf(autor.idAutor.toString())
         )
     }

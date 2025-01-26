@@ -78,10 +78,10 @@ class AutoresActivity : AppCompatActivity() {
 
             // Configurar datos del autor
             val tvAuthorName = authorView.findViewById<TextView>(R.id.tvAuthorName)
-            tvAuthorName.text = "${autor.nombre} ${autor.apellido}"
+            tvAuthorName.text = "Autor: ${autor.nombre} ${autor.apellido}"
 
             val tvAuthorDetails = authorView.findViewById<TextView>(R.id.tvAuthorDetails)
-            tvAuthorDetails.text = "Nacionalidad: ${autor.nacionalidad} / Fecha Nac: ${autor.fechaNacimiento} / Sigue Vivo: ${if (autor.sigueVivo) "Sí" else "No"}"
+            tvAuthorDetails.text = "Nacionalidad: ${autor.nacionalidad}\nFecha Nac: ${autor.fechaNacimiento}\nSigue Vivo: ${if (autor.sigueVivo) "Sí" else "No"}"
 
             // Configurar botones de la vista inflada
             setupButtons(authorView, autor)
@@ -156,8 +156,15 @@ class AutoresActivity : AppCompatActivity() {
     }
 
     private fun editarAutor(autor: Autor) {
-        // Aquí puedes implementar una actividad o diálogo para editar el autor
-        Toast.makeText(this, "Editar autor: ${autor.nombre}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, FormularioAutorActivity::class.java).apply {
+            putExtra("idAutor", autor.idAutor) // Pasar el ID del autor
+            putExtra("nombre", autor.nombre) // Pasar el nombre
+            putExtra("apellido", autor.apellido) // Pasar el apellido
+            putExtra("nacionalidad", autor.nacionalidad) // Pasar la nacionalidad
+            putExtra("fechaNacimiento", autor.fechaNacimiento) // Pasar la fecha de nacimiento
+            putExtra("sigueVivo", autor.sigueVivo) // Pasar el estado de si está vivo o no
+        }
+        startActivity(intent) // Inicia la actividad del formulario
     }
 
     private fun eliminarAutor(authorView: View, autor: Autor) {

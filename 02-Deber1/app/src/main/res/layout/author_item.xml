@@ -16,7 +16,8 @@
         android:padding="16dp"
         android:background="#F5F5F5"
         android:elevation="4dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        tools:ignore="MissingConstraints">
 
         <!-- Nombre del autor -->
         <TextView
@@ -34,7 +35,7 @@
             android:id="@+id/tvAuthorDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nacionalidad: Desconocida / Fecha Nac: -- / Sigue Vivo: Sí"
+            android:text="Nacionalidad: Ecuatoriano\n Fecha Nac: 05/09/2002\n Sigue Vivo: Sí"
             android:textSize="14sp"
             android:textColor="#666666"
             android:layout_marginBottom="16dp" />
