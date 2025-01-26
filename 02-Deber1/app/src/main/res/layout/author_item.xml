@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    android:background="@android:color/white"
-    tools:ignore="MissingConstraints">
+    android:background="@android:color/white">
 
     <!-- Contenedor principal -->
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@android:color/white"
         android:padding="16dp"
+        android:background="#F5F5F5"
         android:elevation="4dp"
-        android:layout_margin="8dp"
-        android:backgroundTint="@android:color/background_light">
+        android:layout_marginBottom="8dp">
 
         <!-- Nombre del autor -->
         <TextView
             android:id="@+id/tvAuthorName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre del Autor"
+            android:text="Autor 1"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#333333"
@@ -34,17 +34,19 @@
             android:id="@+id/tvAuthorDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nacionalidad: -- / Fecha Nac: -- / Sigue Vivo: --"
+            android:text="Nacionalidad: Desconocida / Fecha Nac: -- / Sigue Vivo: Sí"
             android:textSize="14sp"
             android:textColor="#666666"
             android:layout_marginBottom="16dp" />
 
-        <!-- Botones de acción -->
+        <!-- Contenedor de botones -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:weightSum="3">
 
             <!-- Botón Editar -->
             <Button
@@ -55,8 +57,8 @@
                 android:text="Editar"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#6200EE"
-                android:layout_marginEnd="8dp"
-                android:padding="12dp" />
+                android:padding="8dp"
+                android:layout_marginEnd="8dp" />
 
             <!-- Botón Eliminar -->
             <Button
@@ -67,8 +69,8 @@
                 android:text="Eliminar"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#B00020"
-                android:layout_marginEnd="8dp"
-                android:padding="12dp" />
+                android:padding="8dp"
+                android:layout_marginEnd="8dp" />
 
             <!-- Botón Libros -->
             <Button
@@ -79,7 +81,7 @@
                 android:text="Libros"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#03DAC6"
-                android:padding="12dp" />
+                android:padding="8dp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

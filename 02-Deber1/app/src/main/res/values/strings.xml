@@ -4,4 +4,13 @@
     <string name="ver_autores">Ver Autores</string>
     <string name="crear_autor">Crear Autor</string>
     <string name="salir">Salir</string>
+
+    <string name="author_name">Nombre del Autor</string>
+    <string name="author_details">Nacionalidad: -- / Fecha Nac: -- / Sigue Vivo: --</string>
+    <string name="edit">Editar</string>
+    <string name="edit_description">Editar información del autor</string>
+    <string name="delete">Eliminar</string>
+    <string name="delete_description">Eliminar este autor</string>
+    <string name="books">Libros</string>
+    <string name="books_description">Ver libros del autor</string>
 </resources>
