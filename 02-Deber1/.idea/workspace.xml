@@ -50,6 +50,10 @@
   <component name="ChangeListManager">
     <list default="true" id="03ce7239-440f-4cd7-ac17-1f91c7c67d22" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/AutoresActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/AutoresActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/database/AutorDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/database/AutorDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/database/DatabaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/database/DatabaseHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/models/Autor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/a02_deber1/models/Autor.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

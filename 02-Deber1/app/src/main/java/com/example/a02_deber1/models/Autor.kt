@@ -1,7 +1,7 @@
 package com.example.a02_deber1.models
 
 data class Autor(
-    val idAutor: Int,
+    var idAutor: Int,
     val nombre: String,
     val apellido: String,
     val nacionalidad: String,
