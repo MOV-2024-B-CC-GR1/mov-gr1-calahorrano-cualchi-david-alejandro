@@ -12,38 +12,60 @@ class LibroDAO(context: Context) {
     fun insertarLibro(libro: Libro): Long {
         val db: SQLiteDatabase = dbHelper.writableDatabase
         val values = ContentValues().apply {
-            put("titulo", libro.titulo)
-            put("anioPublicacion", libro.anioPublicacion)
-            put("genero", libro.genero)
-            put("precio", libro.precio)
-            put("idAutor", libro.idAutor)
+            put(DatabaseHelper.COLUMN_TITULO, libro.titulo)
+            put(DatabaseHelper.COLUMN_GENERO, libro.genero)
+            put(DatabaseHelper.COLUMN_ANIO_PUBLICACION, libro.anioPublicacion)
+            put(DatabaseHelper.COLUMN_PRECIO, libro.precio)
+            put(DatabaseHelper.COLUMN_ID_AUTOR, libro.idAutor) // Relación con autor
         }
         return db.insert(DatabaseHelper.TABLE_LIBRO, null, values)
     }
 
-    // Método para obtener todos los libros de un autor
-    fun obtenerLibrosPorAutor(idAutor: Int): List<Libro> {
+    // Método para obtener todos los libros
+    fun obtenerTodosLosLibros(): List<Libro> {
         val db: SQLiteDatabase = dbHelper.readableDatabase
-        val cursor = db.query(
-            DatabaseHelper.TABLE_LIBRO,
-            null,
-            "idAutor = ?",
-            arrayOf(idAutor.toString()),
-            null,
-            null,
-            null
-        )
+        val cursor = db.query(DatabaseHelper.TABLE_LIBRO, null, null, null, null, null, null)
         val libros = mutableListOf<Libro>()
 
         if (cursor.moveToFirst()) {
             do {
                 val libro = Libro(
-                    idLibro = cursor.getInt(cursor.getColumnIndexOrThrow("idLibro")),
-                    titulo = cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
-                    anioPublicacion = cursor.getInt(cursor.getColumnIndexOrThrow("anioPublicacion")),
-                    genero = cursor.getString(cursor.getColumnIndexOrThrow("genero")),
-                    precio = cursor.getDouble(cursor.getColumnIndexOrThrow("precio")),
-                    idAutor = cursor.getInt(cursor.getColumnIndexOrThrow("idAutor"))
+                    idLibro = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID_LIBRO)),
+                    titulo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TITULO)),
+                    anioPublicacion = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ANIO_PUBLICACION)),
+                    genero = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_GENERO)),
+                    precio = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PRECIO)),
+                    idAutor = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID_AUTOR))
+                )
+                libros.add(libro)
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        return libros
+    }
+
+    // Método para obtener libros por autor
+    fun obtenerLibrosPorAutor(idAutor: Int): List<Libro> {
+        val db: SQLiteDatabase = dbHelper.readableDatabase
+        val cursor = db.query(
+            DatabaseHelper.TABLE_LIBRO,
+            null,
+            "${DatabaseHelper.COLUMN_ID_AUTOR} = ?",
+            arrayOf(idAutor.toString()),
+            null, null, null
+        )
+
+        val libros = mutableListOf<Libro>()
+        if (cursor.moveToFirst()) {
+            do {
+                val libro = Libro(
+                    idLibro = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID_LIBRO)),
+                    titulo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TITULO)),
+                    anioPublicacion = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ANIO_PUBLICACION)),
+                    genero = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_GENERO)),
+                    precio = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PRECIO)),
+                    idAutor = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID_AUTOR))
                 )
                 libros.add(libro)
             } while (cursor.moveToNext())
@@ -56,12 +78,43 @@ class LibroDAO(context: Context) {
     // Método para borrar un libro por ID
     fun borrarLibroPorId(idLibro: Int): Int {
         val db: SQLiteDatabase = dbHelper.writableDatabase
-        return db.delete(DatabaseHelper.TABLE_LIBRO, "idLibro = ?", arrayOf(idLibro.toString()))
+        return db.delete(
+            DatabaseHelper.TABLE_LIBRO,
+            "${DatabaseHelper.COLUMN_ID_LIBRO} = ?",
+            arrayOf(idLibro.toString())
+        )
     }
 
-    // Método para borrar todos los libros de un autor
-    fun borrarLibrosPorAutor(idAutor: Int): Int {
+    // Método para actualizar un libro
+    fun actualizarLibro(libro: Libro): Int {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put(DatabaseHelper.COLUMN_TITULO, libro.titulo)
+            put(DatabaseHelper.COLUMN_GENERO, libro.genero)
+            put(DatabaseHelper.COLUMN_ANIO_PUBLICACION, libro.anioPublicacion)
+            put(DatabaseHelper.COLUMN_PRECIO, libro.precio)
+            put(DatabaseHelper.COLUMN_ID_AUTOR, libro.idAutor)
+        }
+        return db.update(
+            DatabaseHelper.TABLE_LIBRO,
+            values,
+            "${DatabaseHelper.COLUMN_ID_LIBRO} = ?",
+            arrayOf(libro.idLibro.toString())
+        )
+    }
+
+    // Método para eliminar todos los libros
+    fun borrarTodosLosLibros(): Int {
         val db: SQLiteDatabase = dbHelper.writableDatabase
-        return db.delete(DatabaseHelper.TABLE_LIBRO, "idAutor = ?", arrayOf(idAutor.toString()))
+        return db.delete(DatabaseHelper.TABLE_LIBRO, null, null)
+    }
+
+    // Método para contar el número de libros
+    fun contarLibros(): Int {
+        val db: SQLiteDatabase = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT COUNT(*) FROM ${DatabaseHelper.TABLE_LIBRO}", null)
+        val count = if (cursor.moveToFirst()) cursor.getInt(0) else 0
+        cursor.close()
+        return count
     }
 }

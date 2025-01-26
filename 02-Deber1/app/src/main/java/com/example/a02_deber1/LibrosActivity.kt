@@ -1,63 +1,136 @@
 package com.example.a02_deber1
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.a02_deber1.database.AutorDAO
+import com.example.a02_deber1.database.LibroDAO
+import com.example.a02_deber1.models.Autor
+import com.example.a02_deber1.models.Libro
 
 class LibrosActivity : AppCompatActivity() {
-    private lateinit var booksContainer: LinearLayout
-    private lateinit var btnAddBook: Button
-    private var bookCount = 0 // Contador para los libros dinámicos
+    private lateinit var libroDAO: LibroDAO
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_libros)
+
+        libroDAO = LibroDAO(this)
+
+        // Ajustar padding para barras del sistema
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Inicializar vistas
-        booksContainer = findViewById(R.id.booksContainer)
-        btnAddBook = findViewById(R.id.btnAddBook)
+        // Cargar libros desde la base de datos
+        cargarLibros()
 
-        // Agregar libros iniciales
-        addBook("Cien Años de Soledad", "1967", "Realismo Mágico", 20.99)
-        addBook("La Casa de los Espíritus", "1982", "Drama", 15.50)
-
-        // Configurar el botón para agregar un nuevo libro
+        // Acción del botón "+ Agregar Libro"
+        val btnAddBook = findViewById<Button>(R.id.btnAddBoook)
         btnAddBook.setOnClickListener {
-            bookCount++
-            addBook("Nuevo Libro $bookCount", "2025", "Ficción", 10.00 + bookCount)
+            val intent = Intent(this, FormularioLibroActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Configurar el botón "Regresar"
+        val btnBack = findViewById<Button>(R.id.btnBackBook)
+        btnBack.setOnClickListener {
+            finish() // Finaliza la actividad actual y regresa a la anterior
         }
     }
 
-    private fun addBook(title: String, year: String, genre: String, price: Double) {
-        // Inflar el diseño del libro desde el archivo book_item.xml
-        val inflater = LayoutInflater.from(this)
-        val bookView = inflater.inflate(R.layout.libro_item, booksContainer, false)
+    override fun onResume() {
+        super.onResume()
+        cargarLibros() // Recargar la lista de libros al regresar
+    }
 
-        // Configurar los detalles del libro
-        val tvBookTitle = bookView.findViewById<TextView>(R.id.tvBookTitle)
-        val tvBookYear = bookView.findViewById<TextView>(R.id.tvBookYear)
-        val tvBookGenre = bookView.findViewById<TextView>(R.id.tvBookGenre)
-        val tvBookPrice = bookView.findViewById<TextView>(R.id.tvBookPrice)
+    private fun cargarLibros() {
+        val booksContainer = findViewById<LinearLayout>(R.id.booksContainer)
+        booksContainer.removeAllViews() // Limpia la lista para evitar duplicados
 
-        tvBookTitle.text = "$bookCount. $title"
-        tvBookYear.text = "Año: $year"
-        tvBookGenre.text = "Género: $genre"
-        tvBookPrice.text = "Precio: $${"%.2f".format(price)}"
+        val libros = libroDAO.obtenerTodosLosLibros()
+        if (libros.isEmpty()) {
+            val tvEmptyMessage = findViewById<TextView>(R.id.tvEmptyMessage)
+            tvEmptyMessage.visibility = View.VISIBLE
+        } else {
+            val tvEmptyMessage = findViewById<TextView>(R.id.tvEmptyMessage)
+            tvEmptyMessage.visibility = View.GONE
+        }
 
-        // Agregar la vista inflada al contenedor de libros
-        booksContainer.addView(bookView)
+        libros.forEach { libro ->
+            val bookView: View = LayoutInflater.from(this).inflate(R.layout.author_item, booksContainer, false)
+
+            // Configurar datos del libro
+            val tvBookTitle = bookView.findViewById<TextView>(R.id.tvAuthorName)
+            tvBookTitle.text = libro.titulo
+
+            val tvBookDetails = bookView.findViewById<TextView>(R.id.tvAuthorDetails)
+            tvBookDetails.text = "Género: ${libro.genero}\nAño: ${libro.anioPublicacion}\nPrecio: $${libro.precio}"
+
+            // Configurar botones de la vista inflada
+            setupButtons(bookView, libro)
+
+            // Agregar la vista inflada al contenedor
+            booksContainer.addView(bookView)
+        }
+    }
+
+    private fun setupButtons(bookView: View, libro: Libro) {
+        // Botón Editar
+        val btnEdit = bookView.findViewById<Button>(R.id.btnEdit)
+        btnEdit.setOnClickListener {
+            editarLibro(libro)
+        }
+
+        // Botón Eliminar
+        val btnDelete = bookView.findViewById<Button>(R.id.btnDelete)
+        btnDelete.setOnClickListener {
+            eliminarLibro(bookView, libro)
+        }
+    }
+
+    private fun editarLibro(libro: Libro) {
+        val intent = Intent(this, FormularioLibroActivity::class.java).apply {
+            putExtra("idLibro", libro.idLibro) // Pasar el ID del libro
+            putExtra("titulo", libro.titulo) // Pasar el título
+            putExtra("genero", libro.genero) // Pasar el género
+            putExtra("anioPublicacion", libro.anioPublicacion) // Pasar el año de publicación
+            putExtra("precio", libro.precio) // Pasar el precio
+            putExtra("idAutor", libro.idAutor) // Pasar el ID del autor relacionado
+        }
+        startActivity(intent) // Inicia la actividad del formulario
+    }
+
+    private fun eliminarLibro(bookView: View, libro: Libro) {
+        AlertDialog.Builder(this)
+            .setTitle("Eliminar Libro")
+            .setMessage("¿Estás seguro de que deseas eliminar el libro '${libro.titulo}'?")
+            .setPositiveButton("Sí") { _, _ ->
+                val result = libroDAO.borrarLibroPorId(libro.idLibro)
+                if (result > 0) {
+                    val booksContainer = findViewById<LinearLayout>(R.id.booksContainer)
+                    booksContainer.removeView(bookView)
+                    Toast.makeText(this, "Libro eliminado: ${libro.titulo}", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Error al eliminar el libro", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 }
