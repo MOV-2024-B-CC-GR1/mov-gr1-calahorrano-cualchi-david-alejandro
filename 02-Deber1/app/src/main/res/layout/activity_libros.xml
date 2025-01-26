@@ -68,10 +68,6 @@
     </ScrollView>
 
     <!-- Botón para agregar autores -->
-
-    <!-- Botón para agregar autores -->
-
-    <!-- Botón de regresar -->
     <Button
         android:id="@+id/btnAddBoook"
         android:layout_width="wrap_content"
@@ -87,6 +83,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Botón de regresar -->
     <Button
         android:id="@+id/btnBackBook"
         android:layout_width="wrap_content"
