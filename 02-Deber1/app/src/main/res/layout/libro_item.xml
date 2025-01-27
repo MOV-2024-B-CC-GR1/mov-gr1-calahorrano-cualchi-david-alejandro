@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="16dp"
     android:background="@android:color/white">
 
@@ -21,7 +21,7 @@
         <!-- Título del libro -->
         <TextView
             android:id="@+id/tvBookTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Título del Libro"
             android:textSize="18sp"
@@ -29,12 +29,12 @@
             android:textColor="#333333"
             android:layout_marginBottom="8dp" />
 
-        <!-- Detalles del autor -->
+        <!-- Detalles del libro -->
         <TextView
             android:id="@+id/tvBookDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Año: 2025\n Género: Ciencia Ficción\n Precio: $ 25.99"
+            android:text="Año: 2025\nGénero: Ciencia Ficción\nPrecio: $25.99"
             android:textSize="14sp"
             android:textColor="#666666"
             android:layout_marginBottom="16dp" />
@@ -45,42 +45,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="8dp"
-            android:weightSum="3">
+            android:layout_marginTop="8dp">
 
             <!-- Botón Editar -->
             <Button
                 android:id="@+id/btnEditBook"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginEnd="16dp"
                 android:text="Editar"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#6200EE"
-                android:padding="8dp"
-                android:layout_marginEnd="8dp" />
+                android:padding="8dp" />
 
             <!-- Botón Eliminar -->
             <Button
                 android:id="@+id/btnDeleteBook"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Eliminar"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#B00020"
-                android:padding="8dp"
-                android:layout_marginEnd="8dp" />
-
-            <!-- Botón Ver Detalles -->
-            <Button
-                android:id="@+id/btnViewDetails"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Detalles"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#03DAC6"
                 android:padding="8dp" />
         </LinearLayout>
     </LinearLayout>
