@@ -38,9 +38,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     // Crear las tablas
     override fun onCreate(db: SQLiteDatabase?) {
-        createTableAutor(db)
-        createTableLibro(db)
-        android.util.Log.d("DatabaseHelper", "Base de datos creada exitosamente.")
+        try {
+            createTableAutor(db)
+            createTableLibro(db)
+            android.util.Log.d("DatabaseHelper", "Base de datos creada exitosamente.")
+        } catch (e: Exception) {
+            android.util.Log.e("DatabaseHelper", "Error al crear las tablas", e)
+        }
     }
 
     // Actualizar la base de datos

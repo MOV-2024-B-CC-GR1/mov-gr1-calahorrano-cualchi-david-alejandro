@@ -43,8 +43,13 @@ class LibrosActivity : AppCompatActivity() {
         // Acción del botón "+ Agregar Libro"
         val btnAddBook = findViewById<Button>(R.id.btnAddBoook)
         btnAddBook.setOnClickListener {
-            val intent = Intent(this, FormularioLibroActivity::class.java)
-            startActivity(intent)
+            // Llama a agregarLibro y pasa el idAutor desde el intent o actividad anterior
+            val idAutor = intent.getIntExtra("idAutor", -1)
+            if (idAutor != -1) {
+                agregarLibro(idAutor)
+            } else {
+                Toast.makeText(this, "No se pudo obtener el autor para el libro.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         // Configurar el botón "Regresar"
@@ -57,6 +62,14 @@ class LibrosActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         cargarLibros() // Recargar la lista de libros al regresar
+    }
+
+    @SuppressLint("MissingInflatedId")
+    private fun agregarLibro(idAutor: Int) {
+        val intent = Intent(this, FormularioLibroActivity::class.java).apply {
+            putExtra("idAutor", idAutor) // Relaciona el libro con el autor
+        }
+        startActivity(intent)
     }
 
     private fun cargarLibros() {
@@ -76,11 +89,11 @@ class LibrosActivity : AppCompatActivity() {
             val bookView: View = LayoutInflater.from(this).inflate(R.layout.author_item, booksContainer, false)
 
             // Configurar datos del libro
-            val tvBookTitle = bookView.findViewById<TextView>(R.id.tvAuthorName)
-            tvBookTitle.text = libro.titulo
+            val tvBookTitle = bookView.findViewById<TextView>(R.id.tvBookTitle)
+            tvBookTitle.text = "Libro: ${libro.titulo}"
 
-            val tvBookDetails = bookView.findViewById<TextView>(R.id.tvAuthorDetails)
-            tvBookDetails.text = "Género: ${libro.genero}\nAño: ${libro.anioPublicacion}\nPrecio: $${libro.precio}"
+            val tvBookDetails = bookView.findViewById<TextView>(R.id.tvBookDetails)
+            tvBookDetails.text = "Género: ${libro.genero}\nAño: ${libro.anioPublicacion}\nPrecio: $ ${libro.precio}"
 
             // Configurar botones de la vista inflada
             setupButtons(bookView, libro)
@@ -89,6 +102,52 @@ class LibrosActivity : AppCompatActivity() {
             booksContainer.addView(bookView)
         }
     }
+
+    @SuppressLint("MissingInflatedId")
+    private fun addBook() {
+        val booksContainer = findViewById<LinearLayout>(R.id.booksContainer)
+        val bookView: View = LayoutInflater.from(this).inflate(R.layout.libro_item, booksContainer, false)
+
+        // Crear datos ficticios del libro (puedes ajustar según sea necesario)
+        val libro = Libro(
+            idLibro = 0,
+            titulo = "Libro ${booksContainer.childCount + 1}",
+            anioPublicacion = 2023,
+            genero = "Ficción",
+            precio = 20.0,
+            idAutor = intent.getIntExtra("idAutor", -1) // Relacionar con un autor existente
+        )
+
+        // Insertar el libro en la base de datos
+        val libroId = libroDAO.insertarLibro(libro)
+        if (libroId > 0) {
+            // Actualizar el ID del libro
+            libro.idLibro = libroId.toInt()
+        }
+
+        // Actualizar los datos del libro en la vista
+        val tvBookTitle = bookView.findViewById<TextView>(R.id.tvBookTitle)
+        tvBookTitle.text = libro.titulo
+
+        val tvBookDetails = bookView.findViewById<TextView>(R.id.tvBookDetails)
+        tvBookDetails.text = "Género: ${libro.genero}\nAño: ${libro.anioPublicacion}\nPrecio: $ ${libro.precio}"
+
+        // Configurar botones para editar y eliminar
+        setupButtons(bookView, libro)
+
+        // Agregar la vista inflada al contenedor
+        booksContainer.addView(bookView)
+
+        // Ocultar el mensaje vacío si es necesario
+        if (booksContainer.childCount > 0) {
+            val tvEmptyMessage = findViewById<TextView>(R.id.tvEmptyMessage)
+            tvEmptyMessage.visibility = View.GONE
+        }
+
+        // Mostrar mensaje de retroalimentación
+        Toast.makeText(this, "Libro agregado: ${tvBookTitle.text}", Toast.LENGTH_SHORT).show()
+    }
+
 
     private fun setupButtons(bookView: View, libro: Libro) {
         // Botón Editar

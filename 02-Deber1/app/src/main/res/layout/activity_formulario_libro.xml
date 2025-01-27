@@ -74,6 +74,22 @@
             android:layout_marginBottom="16dp"
             android:background="@android:drawable/editbox_background" />
 
+        <!-- Campo Selección de Autor -->
+        <TextView
+            android:id="@+id/tvSeleccionAutor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Autor:"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spinnerAutores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:layout_marginBottom="16dp" />
+
         <!-- Campo Año Publicación -->
         <TextView
             android:id="@+id/tvAnioPublicacion"
@@ -130,7 +146,7 @@
             android:id="@+id/etPrecio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="$00.00"
+            android:hint="$ 00.00"
             android:inputType="numberDecimal"
             android:padding="12dp"
             android:textColor="#333333"
