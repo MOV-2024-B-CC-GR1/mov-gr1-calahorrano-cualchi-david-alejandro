@@ -67,7 +67,7 @@ class LibrosActivity : AppCompatActivity() {
 
     private fun addBook() {
         val booksContainer = findViewById<LinearLayout>(R.id.booksContainer)
-        val bookView = LayoutInflater.from(this).inflate(R.layout.item_book, null)
+        val bookView = LayoutInflater.from(this).inflate(R.layout.libro_item, null)
 
         // Datos ficticios del libro
         val libro = Libro(
@@ -139,7 +139,7 @@ class LibrosActivity : AppCompatActivity() {
             .setPositiveButton("Sí") { _, _ ->
                 val result = libroDAO.borrarLibroPorId(libro.idLibro)
                 if (result > 0) {
-                    val booksContainer = findViewById<LinearLayout>(R.id.booksContainer))
+                    val booksContainer = findViewById<LinearLayout>(R.id.booksContainer)
                     booksContainer.removeView(bookView)
                     Toast.makeText(this, "Autor eliminado: ${libro.titulo}", Toast.LENGTH_SHORT).show()
                 } else {
