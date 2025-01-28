@@ -63,6 +63,15 @@ class LibrosActivity : AppCompatActivity() {
     private fun cargarLibros() {
         val booksContainer = findViewById<LinearLayout>(R.id.booksContainer)
         booksContainer.removeAllViews() // Limpia la lista para evitar duplicados
+
+        val libros = libroDAO.obtenerTodosLosLibros()
+        if (libros.isEmpty()) {
+            val tvEmptyMessage = findViewById<TextView>(R.id.tvEmptyMessage)
+            tvEmptyMessage.visibility = View.VISIBLE
+        } else {
+            val tvEmptyMessage = findViewById<TextView>(R.id.tvEmptyMessage)
+            tvEmptyMessage.visibility = View.GONE
+        }
     }
 
     private fun addBook() {
