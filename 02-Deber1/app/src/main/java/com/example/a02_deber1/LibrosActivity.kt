@@ -72,6 +72,23 @@ class LibrosActivity : AppCompatActivity() {
             val tvEmptyMessage = findViewById<TextView>(R.id.tvEmptyMessage)
             tvEmptyMessage.visibility = View.GONE
         }
+
+        libros.forEach { libro ->
+            val bookView = LayoutInflater.from(this).inflate(R.layout.libro_item, booksContainer, false)
+
+            // Configurar datos del libro
+            val tvBookTitle = bookView.findViewById<TextView>(R.id.tvBookTitle)
+            tvBookTitle.text = libro.titulo
+
+            val tvBookDetails = bookView.findViewById<TextView>(R.id.tvBookDetails)
+            tvBookDetails.text = "Año: ${libro.anioPublicacion}\nGénero: ${libro.genero}\nPrecio: $ ${libro.precio}"
+
+            // Configurar botones de la vista inflada
+            setupButtons(bookView, libro)
+
+            // Agregar la vista inflada al contenedor
+            booksContainer.addView(bookView)
+        }
     }
 
     private fun addBook() {
