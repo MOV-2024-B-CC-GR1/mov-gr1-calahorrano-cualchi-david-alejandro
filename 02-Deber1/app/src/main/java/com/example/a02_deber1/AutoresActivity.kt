@@ -194,7 +194,7 @@ class AutoresActivity : AppCompatActivity() {
 
     private fun mostrarLibros(autor: Autor) {
         val intent = Intent(this, LibrosActivity::class.java)
-        intent.putExtra("idAutor", autor.idAutor) // Pasamos el idAutor
+        intent.putExtra("idAutor", autor.idAutor) // Enviar ID del autor
         startActivity(intent)
     }
 }

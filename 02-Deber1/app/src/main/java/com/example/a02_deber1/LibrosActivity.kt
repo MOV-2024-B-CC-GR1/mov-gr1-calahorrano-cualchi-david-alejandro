@@ -65,16 +65,17 @@ class LibrosActivity : AppCompatActivity() {
 
     private fun cargarLibros() {
         val booksContainer = findViewById<LinearLayout>(R.id.booksContainer)
-        booksContainer.removeAllViews()
+        booksContainer.removeAllViews() // Limpia la lista para evitar duplicados
 
-        val idAutor = intent.getIntExtra("idAutor", -1) // Recibimos el idAutor
+        // Obtener el idAutor desde el Intent (Si viene de un autor, tendrá un valor válido)
+        val idAutor = intent.getIntExtra("idAutor", -1)
 
-        if (idAutor == -1) {
-            Toast.makeText(this, "Error: No se pudo obtener el autor.", Toast.LENGTH_SHORT).show()
-            return
+        // Si idAutor es -1, significa que se debe mostrar todos los libros
+        val libros = if (idAutor == -1) {
+            libroDAO.obtenerTodosLosLibros()
+        } else {
+            libroDAO.obtenerLibrosPorAutor(idAutor)
         }
-
-        val libros = libroDAO.obtenerLibrosPorAutor(idAutor) // Filtrar libros por autor
 
         if (libros.isEmpty()) {
             val tvEmptyMessage = findViewById<TextView>(R.id.tvEmptyMessage)
@@ -87,13 +88,17 @@ class LibrosActivity : AppCompatActivity() {
         libros.forEach { libro ->
             val bookView = LayoutInflater.from(this).inflate(R.layout.libro_item, booksContainer, false)
 
+            // Configurar datos del libro
             val tvBookTitle = bookView.findViewById<TextView>(R.id.tvBookTitle)
             tvBookTitle.text = libro.titulo
 
             val tvBookDetails = bookView.findViewById<TextView>(R.id.tvBookDetails)
             tvBookDetails.text = "Año: ${libro.anioPublicacion}\nGénero: ${libro.genero}\nPrecio: $ ${libro.precio}"
 
+            // Configurar botones de la vista inflada
             setupButtons(bookView, libro)
+
+            // Agregar la vista inflada al contenedor
             booksContainer.addView(bookView)
         }
     }
