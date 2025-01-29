@@ -151,7 +151,7 @@ class AutoresActivity : AppCompatActivity() {
         // Botón Libros
         val btnBooks = authorView.findViewById<Button>(R.id.btnBooks)
         btnBooks.setOnClickListener {
-            agregarLibro(autor.idAutor) // Llama al método y pasa el ID del autor
+            mostrarLibros(autor) // Llama al método y pasa el ID del autor
         }
     }
 
