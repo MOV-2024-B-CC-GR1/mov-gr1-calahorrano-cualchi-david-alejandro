@@ -56,32 +56,31 @@ class LibroDAO(context: Context) {
     // Método para obtener libros por autor
     fun obtenerLibrosPorAutor(idAutor: Int): List<Libro> {
         val libros = mutableListOf<Libro>()
-        try {
-            val db: SQLiteDatabase = dbHelper.readableDatabase
-            val cursor = db.query(
-                DatabaseHelper.TABLE_LIBRO,
-                null,
-                "${DatabaseHelper.COLUMN_ID_AUTOR_LIBRO} = ?",
-                arrayOf(idAutor.toString()),
-                null, null, null
-            )
-            if (cursor.moveToFirst()) {
-                do {
-                    val libro = Libro(
-                        idLibro = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID_LIBRO)),
-                        titulo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TITULO)),
-                        anioPublicacion = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ANIO_PUBLICACION)),
-                        genero = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_GENERO)),
-                        precio = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PRECIO)),
-                        idAutor = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID_AUTOR_LIBRO))
-                    )
-                    libros.add(libro)
-                } while (cursor.moveToNext())
-            }
-            cursor.close()
-        } catch (e: Exception) {
-            Log.e("LibroDAO", "Error al obtener libros por autor: ${e.message}")
+        val db: SQLiteDatabase = dbHelper.readableDatabase
+
+        val cursor = db.query(
+            DatabaseHelper.TABLE_LIBRO,
+            null,
+            "${DatabaseHelper.COLUMN_ID_AUTOR_LIBRO} = ?", // Filtra por idAutor
+            arrayOf(idAutor.toString()),
+            null, null, null
+        )
+
+        if (cursor.moveToFirst()) {
+            do {
+                val libro = Libro(
+                    idLibro = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID_LIBRO)),
+                    titulo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TITULO)),
+                    anioPublicacion = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ANIO_PUBLICACION)),
+                    genero = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_GENERO)),
+                    precio = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PRECIO)),
+                    idAutor = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID_AUTOR_LIBRO))
+                )
+                libros.add(libro)
+            } while (cursor.moveToNext())
         }
+
+        cursor.close()
         return libros
     }
 

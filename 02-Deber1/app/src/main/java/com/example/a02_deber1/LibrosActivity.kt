@@ -30,6 +30,9 @@ class LibrosActivity : AppCompatActivity() {
 
         libroDAO = LibroDAO(this)
 
+        // Obtener el idAutor del Intent
+        val idAutor = intent.getIntExtra("idAutor", -1)
+
         // Ajustar padding para barras del sistema
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -57,14 +60,22 @@ class LibrosActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        cargarLibros() // Recarga la lista de libros al volver a la actividad
+        cargarLibros()
     }
 
     private fun cargarLibros() {
         val booksContainer = findViewById<LinearLayout>(R.id.booksContainer)
-        booksContainer.removeAllViews() // Limpia la lista para evitar duplicados
+        booksContainer.removeAllViews()
 
-        val libros = libroDAO.obtenerTodosLosLibros()
+        val idAutor = intent.getIntExtra("idAutor", -1) // Recibimos el idAutor
+
+        if (idAutor == -1) {
+            Toast.makeText(this, "Error: No se pudo obtener el autor.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val libros = libroDAO.obtenerLibrosPorAutor(idAutor) // Filtrar libros por autor
+
         if (libros.isEmpty()) {
             val tvEmptyMessage = findViewById<TextView>(R.id.tvEmptyMessage)
             tvEmptyMessage.visibility = View.VISIBLE
@@ -76,17 +87,13 @@ class LibrosActivity : AppCompatActivity() {
         libros.forEach { libro ->
             val bookView = LayoutInflater.from(this).inflate(R.layout.libro_item, booksContainer, false)
 
-            // Configurar datos del libro
             val tvBookTitle = bookView.findViewById<TextView>(R.id.tvBookTitle)
             tvBookTitle.text = libro.titulo
 
             val tvBookDetails = bookView.findViewById<TextView>(R.id.tvBookDetails)
             tvBookDetails.text = "Año: ${libro.anioPublicacion}\nGénero: ${libro.genero}\nPrecio: $ ${libro.precio}"
 
-            // Configurar botones de la vista inflada
             setupButtons(bookView, libro)
-
-            // Agregar la vista inflada al contenedor
             booksContainer.addView(bookView)
         }
     }

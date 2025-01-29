@@ -193,10 +193,8 @@ class AutoresActivity : AppCompatActivity() {
     }
 
     private fun mostrarLibros(autor: Autor) {
-        // Redirigir a otra actividad para mostrar los libros del autor
-        Toast.makeText(this, "Mostrar libros de: ${autor.nombre}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, LibrosActivity::class.java)
-        intent.putExtra("idAutor", autor.idAutor)
+        intent.putExtra("idAutor", autor.idAutor) // Pasamos el idAutor
         startActivity(intent)
     }
 }
