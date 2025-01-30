@@ -35,52 +35,91 @@ class ECrudEntrenador : AppCompatActivity() {
             val id = findViewById<EditText>(R.id.input_id)
             val nombre = findViewById<EditText>(R.id.input_nombre)
             val descripcion = findViewById<EditText>(R.id.input_descripcion)
-            val entrenador = EBaseDeDatos.tablaEntrenador!!
+            val entrenador = EBaseDeDatos.obtenerBaseDatos(this)
                 .consultarEntrenadorPorId(id.text.toString().toInt())
-            if(entrenador == null){
+
+            if (entrenador == null) {
                 id.setText("")
                 nombre.setText("")
                 descripcion.setText("")
-                mostrarSnackbar("Ent. no encontrado")
-            }else{
+                mostrarSnackbar("Entrenador no encontrado")
+            } else {
                 nombre.setText(entrenador.nombre)
                 descripcion.setText(entrenador.descripcion)
                 mostrarSnackbar("Entrenador ${entrenador.nombre} encontrado")
             }
         }
 
+        // Eliminar entrenador
         val botonEliminarBDD = findViewById<Button>(R.id.btn_eliminar_bdd)
         botonEliminarBDD.setOnClickListener {
             val id = findViewById<EditText>(R.id.input_id)
-            val respuesta = EBaseDeDatos.tablaEntrenador!!
+            val respuesta = EBaseDeDatos.obtenerBaseDatos(this)
                 .eliminarEntrenador(id.text.toString().toInt())
-            if(respuesta) mostrarSnackbar("Ent. elim") else mostrarSnackbar("No enc.")
+
+            if (respuesta) mostrarSnackbar("Entrenador eliminado")
+            else mostrarSnackbar("No encontrado")
         }
 
+        // Crear entrenador
         val botonCrearBDD = findViewById<Button>(R.id.btn_crear_bdd)
         botonCrearBDD.setOnClickListener {
             val nombre = findViewById<EditText>(R.id.input_nombre)
             val descripcion = findViewById<EditText>(R.id.input_descripcion)
-            val respuesta = EBaseDeDatos.tablaEntrenador!!
+            val respuesta = EBaseDeDatos.obtenerBaseDatos(this)
                 .crearEntrenador(
                     nombre.text.toString(),
                     descripcion.text.toString()
                 )
-            if(respuesta) mostrarSnackbar("Entr. creado") else mostrarSnackbar("Fallo")
+
+            if (respuesta) mostrarSnackbar("Entrenador creado")
+            else mostrarSnackbar("Fallo al crear")
         }
 
+        // Actualizar entrenador
         val botonActualizarBDD = findViewById<Button>(R.id.btn_actualizar_bdd)
         botonActualizarBDD.setOnClickListener {
             val id = findViewById<EditText>(R.id.input_id)
             val nombre = findViewById<EditText>(R.id.input_nombre)
             val descripcion = findViewById<EditText>(R.id.input_descripcion)
-            val respuesta = EBaseDeDatos.tablaEntrenador!!
+            val respuesta = EBaseDeDatos.obtenerBaseDatos(this)
                 .actualizarEntrenador(
                     nombre.text.toString(),
                     descripcion.text.toString(),
                     id.text.toString().toInt()
                 )
-            if(respuesta) mostrarSnackbar("Entr. actua") else mostrarSnackbar("Fallo")
+
+            if (respuesta) mostrarSnackbar("Entrenador actualizado")
+            else mostrarSnackbar("Fallo al actualizar")
         }
+
+        // 🔹 NUEVO: Mostrar todos los entrenadores
+        val botonMostrarTodos = findViewById<Button>(R.id.btn_mostrar_todos)
+        botonMostrarTodos.setOnClickListener {
+            mostrarTodosEntrenadores()
+        }
+
+        // 🔹 NUEVO: Mostrar cantidad de entrenadores
+        val botonMostrarCantidad = findViewById<Button>(R.id.btn_mostrar_cantidad)
+        botonMostrarCantidad.setOnClickListener {
+            mostrarCantidadEntrenadores()
+        }
+    }
+
+    // 🔹 NUEVA FUNCIÓN: Muestra todos los entrenadores en un Snackbar
+    fun mostrarTodosEntrenadores() {
+        val listaEntrenadores = EBaseDeDatos.obtenerBaseDatos(this).consultarTodosEntrenadores()
+        if (listaEntrenadores.isEmpty()) {
+            mostrarSnackbar("No hay entrenadores registrados")
+        } else {
+            val nombres = listaEntrenadores.joinToString("\n") { "${it.id}: ${it.nombre}" }
+            mostrarSnackbar("Entrenadores:\n$nombres")
+        }
+    }
+
+    // 🔹 NUEVA FUNCIÓN: Muestra la cantidad total de entrenadores en la base de datos
+    fun mostrarCantidadEntrenadores() {
+        val cantidad = EBaseDeDatos.obtenerBaseDatos(this).contarEntrenadores()
+        mostrarSnackbar("Total de entrenadores: $cantidad")
     }
 }

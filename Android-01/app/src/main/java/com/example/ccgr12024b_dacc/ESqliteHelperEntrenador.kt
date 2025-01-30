@@ -26,81 +26,77 @@ class ESqliteHelperEntrenador(
     }
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {}
 
-    fun crearEntrenador(nombre: String,
-                        descripcion: String): Boolean{
+    fun crearEntrenador(nombre: String, descripcion: String): Boolean {
         val baseDatosEscritura = writableDatabase
         val valoresGuardar = ContentValues()
         valoresGuardar.put("nombre", nombre)
         valoresGuardar.put("descripcion", descripcion)
-        val resultadoGuardar = baseDatosEscritura
-            .insert(
-                "ENTRENADOR", // nombre tabla
-                null,
-                valoresGuardar // valores
-            )
+        val resultadoGuardar = baseDatosEscritura.insert("ENTRENADOR", null, valoresGuardar)
         baseDatosEscritura.close()
-        return if (resultadoGuardar.toInt() == -1) false else true
+        return resultadoGuardar.toInt() != -1
     }
 
-    fun eliminarEntrenador(id:Int):Boolean{
+    fun eliminarEntrenador(id: Int): Boolean {
         val baseDatosEscritura = writableDatabase
         // where .. ID=? and nombre=? [?=1,?=2]
         val parametrosConsultaDelete = arrayOf(id.toString())
-        val resultadoEliminar = baseDatosEscritura
-            .delete(
-                "ENTRENADOR", // tabla
-                "id=?", // consulta
-                parametrosConsultaDelete // parametros
-            )
+        val resultadoEliminar = baseDatosEscritura.delete("ENTRENADOR", "id=?", parametrosConsultaDelete)
         baseDatosEscritura.close()
-        return if(resultadoEliminar.toInt() == -1) false else true
+        return resultadoEliminar != -1
     }
 
-    fun actualizarEntrenador(nombre: String, descripcion: String,
-                             id: Int):Boolean{
+    fun actualizarEntrenador(nombre: String, descripcion: String, id: Int): Boolean {
         val baseDatosEscritura = writableDatabase
         val valoresAActualizar = ContentValues()
         valoresAActualizar.put("nombre", nombre)
         valoresAActualizar.put("descripcion", descripcion)
-        // where
         val parametrosConsultaActualizar = arrayOf(id.toString())
-        val resultadoActualizar = baseDatosEscritura
-            .update(
-                "ENTRENADOR", // tabla
-                valoresAActualizar, // valores
-                "id=?", // id=1
-                parametrosConsultaActualizar // [1]
-            )
+        val resultadoActualizar = baseDatosEscritura.update("ENTRENADOR", valoresAActualizar, "id=?", parametrosConsultaActualizar)
         baseDatosEscritura.close()
-        return if(resultadoActualizar.toInt()==-1) false else true
+        return resultadoActualizar != -1
     }
 
-    fun consultarEntrenadorPorId(id: Int): BEntrenador?{
+    fun consultarEntrenadorPorId(id: Int): BEntrenador? {
         val baseDatosLectura = readableDatabase
-        val scriptConsultaLectura = """
-            SELECT * FROM ENTRENADOR WHERE ID = ?
-        """.trimIndent()
+        val scriptConsultaLectura = "SELECT * FROM ENTRENADOR WHERE ID = ?"
         val parametrosConsultaLectura = arrayOf(id.toString())
-        val resultadoConsultaLectura = baseDatosLectura
-            .rawQuery(
-                scriptConsultaLectura,
-                parametrosConsultaLectura
+        val resultadoConsultaLectura = baseDatosLectura.rawQuery(scriptConsultaLectura, parametrosConsultaLectura)
+        return if (resultadoConsultaLectura.moveToFirst()) {
+            BEntrenador(
+                resultadoConsultaLectura.getInt(0),
+                resultadoConsultaLectura.getString(1),
+                resultadoConsultaLectura.getString(2)
             )
-        val existeAlMenosUno = resultadoConsultaLectura.moveToFirst()
-        if(existeAlMenosUno){
-            val arregloRespuesta = arrayListOf<BEntrenador>()
-            do{
-                val entrenador = BEntrenador(
-                    resultadoConsultaLectura.getInt(0), // 0 = id
-                    resultadoConsultaLectura.getString(1), // 1 = nombre
-                    resultadoConsultaLectura.getString(2) // 2 = descripcion
-                )
-                arregloRespuesta.add(entrenador)
-            }while(resultadoConsultaLectura.moveToNext())
-            return arregloRespuesta[0] // En otros casos devolvemos el arrreglo completo
-        }else{
-            return null
-        }
+        } else {
+            null
+        }.also { resultadoConsultaLectura.close() }
+    }
 
+    // 🔹 NUEVA FUNCIÓN: Obtener todos los entrenadores
+    fun consultarTodosEntrenadores(): ArrayList<BEntrenador> {
+        val listaEntrenadores = arrayListOf<BEntrenador>()
+        val baseDatosLectura = readableDatabase
+        val scriptConsulta = "SELECT * FROM ENTRENADOR"
+        val resultadoConsulta = baseDatosLectura.rawQuery(scriptConsulta, null)
+        while (resultadoConsulta.moveToNext()) {
+            val entrenador = BEntrenador(
+                resultadoConsulta.getInt(0),
+                resultadoConsulta.getString(1),
+                resultadoConsulta.getString(2)
+            )
+            listaEntrenadores.add(entrenador)
+        }
+        resultadoConsulta.close()
+        return listaEntrenadores
+    }
+
+    // 🔹 NUEVA FUNCIÓN: Contar la cantidad de entrenadores en la base de datos
+    fun contarEntrenadores(): Int {
+        val baseDatosLectura = readableDatabase
+        val scriptConsulta = "SELECT COUNT(*) FROM ENTRENADOR"
+        val resultadoConsulta = baseDatosLectura.rawQuery(scriptConsulta, null)
+        val total = if (resultadoConsulta.moveToFirst()) resultadoConsulta.getInt(0) else 0
+        resultadoConsulta.close()
+        return total
     }
 }

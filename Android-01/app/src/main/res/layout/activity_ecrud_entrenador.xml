@@ -1,92 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ECrudEntrenador">
+    tools:context=".ECrudEntrenador"
+    android:padding="24dp">
 
-    <Button
-        android:id="@+id/btn_buscar_bdd"
-        android:layout_width="wrap_content"
+    <!-- Campo ID -->
+    <EditText
+        android:id="@+id/input_id"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="Buscar"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_crear_bdd"
-        app:layout_constraintEnd_toStartOf="@+id/btn_crear_bdd"
-        app:layout_constraintTop_toTopOf="@+id/btn_crear_bdd"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btn_crear_bdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Crear"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="Ingrese ID"
+        android:inputType="number"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"/>
 
-    <Button
-        android:id="@+id/btn_actualizar_bdd"
+    <!-- Campo Nombre -->
+    <EditText
+        android:id="@+id/input_nombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese Nombre"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/input_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Campo Descripción -->
+    <EditText
+        android:id="@+id/input_descripcion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese Descripción"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/input_nombre"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Contenedor para los botones superiores -->
+    <LinearLayout
+        android:id="@+id/contenedor_botones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="actualizar"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_crear_bdd"
-        app:layout_constraintStart_toEndOf="@+id/btn_crear_bdd"
-        app:layout_constraintTop_toTopOf="@+id/btn_crear_bdd"
-        app:layout_constraintVertical_bias="0.0" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/input_descripcion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp">
 
+        <Button
+            android:id="@+id/btn_buscar_bdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buscar"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#673AB7"
+            android:layout_marginEnd="8dp"
+            android:paddingHorizontal="16dp"/>
+
+        <Button
+            android:id="@+id/btn_crear_bdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crear"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#673AB7"
+            android:layout_marginEnd="8dp"
+            android:paddingHorizontal="16dp"/>
+
+        <Button
+            android:id="@+id/btn_actualizar_bdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actualizar"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#673AB7"
+            android:paddingHorizontal="16dp"/>
+    </LinearLayout>
+
+    <!-- Botón Eliminar (Centrado) -->
     <Button
         android:id="@+id/btn_eliminar_bdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="Eliminar"
-        app:layout_constraintEnd_toEndOf="@+id/btn_crear_bdd"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="@+id/btn_crear_bdd"
-        app:layout_constraintTop_toBottomOf="@+id/btn_crear_bdd" />
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#D32F2F"
+        android:paddingHorizontal="32dp"
+        app:layout_constraintTop_toBottomOf="@id/contenedor_botones"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
 
-    <EditText
-        android:id="@+id/input_nombre"
+    <!-- 🔹 NUEVOS BOTONES: Mostrar todos los entrenadores y contar entrenadores -->
+    <Button
+        android:id="@+id/btn_mostrar_todos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:ems="10"
-        android:hint="Ingrese nombre"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/input_descripcion"
-        app:layout_constraintEnd_toEndOf="@+id/input_descripcion"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/input_descripcion" />
+        android:text="Mostrar Todos"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#0288D1"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_eliminar_bdd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
 
-    <EditText
-        android:id="@+id/input_descripcion"
+    <Button
+        android:id="@+id/btn_mostrar_cantidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:ems="10"
-        android:hint="Ingrese Descripcion"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btn_crear_bdd"
-        app:layout_constraintEnd_toEndOf="@+id/btn_crear_bdd"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="@+id/btn_crear_bdd" />
-
-    <EditText
-        android:id="@+id/input_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:ems="10"
-        android:hint="Ingrese id"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/input_nombre"
-        app:layout_constraintEnd_toEndOf="@+id/input_nombre"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/input_nombre" />
-
+        android:text="Mostrar Cantidad"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#0288D1"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_mostrar_todos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
