@@ -8,15 +8,16 @@ class BEntrenador (
     var nombre: String,
     var descripcion: String?
 ):Parcelable {
+    // Constructor para leer desde Parcel
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readString()!!,
+        parcel.readString()?: "", // Evita el uso de `!!`, previene crashes si el valor es null
         parcel.readString()
     ) {
     }
 
     override fun toString(): String {
-        return "$nombre ${descripcion}"
+        return "$nombre ${descripcion ?: "Sin descripción"}"
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

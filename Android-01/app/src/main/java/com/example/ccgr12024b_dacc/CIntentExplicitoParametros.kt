@@ -26,7 +26,12 @@ class CIntentExplicitoParametros : AppCompatActivity() {
         val apellido = intent.getStringExtra("apellido") ?: "Sin apellido"
         val edad = intent.getIntExtra("edad", 0)
         val entrenador = intent.getParcelableExtra<BEntrenador>("entrenador")
-
+        if (entrenador != null) {
+            Log.d("CIntentExplicitoParametros", "Entrenador recibido: $entrenador")
+        } else {
+            Log.e("CIntentExplicitoParametros", "Entrenador es NULL")
+        }
+        
         // Depuración con Logcat
         Log.d("CIntentExplicitoParametros", "Recibido -> Nombre: $nombre, Apellido: $apellido, Edad: $edad, Entrenador: ${entrenador.toString()}")
 
