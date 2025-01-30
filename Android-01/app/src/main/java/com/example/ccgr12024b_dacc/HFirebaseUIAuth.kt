@@ -1,6 +1,7 @@
 package com.example.ccgr12024b_dacc
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -17,39 +18,45 @@ import com.google.firebase.auth.FirebaseAuth
 class HFirebaseUIAuth : AppCompatActivity() {
     private val respuestaLoginUiAuth = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
-    ){
-        res: FirebaseAuthUIAuthenticationResult ->
-            if (res.resultCode == RESULT_OK){
-                if (res.idpResponse != null) {
-                    seLogeo(res.idpResponse!!)
-                }
+    ) { res: FirebaseAuthUIAuthenticationResult ->
+        if (res.resultCode == RESULT_OK) {
+            res.idpResponse?.let {
+                Log.d("Auth", "Usuario autenticado correctamente")
+                seLogeo(it)
             }
-    }
-
-    fun seLogeo(res: IdpResponse) {
-        val nombre = FirebaseAuth.getInstance().currentUser?.displayName
-        cambiarInterfaz(View.INVISIBLE, View.VISIBLE, nombre!!)
-        if (res.isNewUser == true) {
-            registrarUsuarioPorPrimeraVez(res)
+        } else {
+            Log.e("Auth", "Error en autenticación: ${res.idpResponse?.error?.message}")
         }
     }
 
-    fun cambiarInterfaz(
+    private fun seLogeo(res: IdpResponse) {
+        val usuario = FirebaseAuth.getInstance().currentUser
+        usuario?.let {
+            cambiarInterfaz(View.INVISIBLE, View.VISIBLE, it.displayName ?: "Bienvenido")
+            if (res.isNewUser) {
+                registrarUsuarioPorPrimeraVez(res)
+            }
+        } ?: Log.e("Auth", "Error: Usuario es nulo después de iniciar sesión")
+    }
+
+    private fun cambiarInterfaz(
         visibilidadLogin: Int = View.VISIBLE,
         visibilidadLogout: Int = View.INVISIBLE,
         textoTextView: String = "Bienvenido"
     ) {
-        val btnLogin = findViewById<Button>(R.id.btn_login_firebase)
-        val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
-        val tvBienvenido = findViewById<TextView>(R.id.tv_bienvenido)
-
-        btnLogin.visibility = visibilidadLogin
-        btnLogout.visibility = visibilidadLogout
-        tvBienvenido.text = textoTextView
+        runOnUiThread {
+            findViewById<Button>(R.id.btn_login_firebase).visibility = visibilidadLogin
+            findViewById<Button>(R.id.btn_logout_firebase).visibility = visibilidadLogout
+            findViewById<TextView>(R.id.tv_bienvenido).text = textoTextView
+        }
     }
 
     // Registramos en nuestro sistema y el enviamos correco, etc...
-    fun registrarUsuarioPorPrimeraVez(usuario: IdpResponse){}
+    private fun registrarUsuarioPorPrimeraVez(usuario: IdpResponse) {
+        Log.d("Auth", "Registrando usuario por primera vez: ${usuario.email}")
+        // Aquí podrías enviar un correo de bienvenida o guardar datos en Firestore
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -62,22 +69,30 @@ class HFirebaseUIAuth : AppCompatActivity() {
 
         val btnLogin = findViewById<Button>(R.id.btn_login_firebase)
         btnLogin.setOnClickListener {
-            val providers = arrayListOf(
-                AuthUI.IdpConfig.EmailBuilder().build()
-            )
+            val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
             val logearseIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                .setAvailableProviders(providers).build()
+                .setAvailableProviders(providers)
+                .setIsSmartLockEnabled(false) // Evita problemas con Smart Lock
+                .build()
             respuestaLoginUiAuth.launch(logearseIntent)
         }
+
         val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
         btnLogout.setOnClickListener {
-            cambiarInterfaz()
             FirebaseAuth.getInstance().signOut()
+            cambiarInterfaz()
+            Log.d("Auth", "Usuario cerró sesión")
         }
+
         val usuario = FirebaseAuth.getInstance().currentUser
         if(usuario !=null) {
             cambiarInterfaz(View.INVISIBLE, View.VISIBLE, usuario.displayName!!)
+        }
+
+        // Verificar si el usuario ya está autenticado
+        FirebaseAuth.getInstance().currentUser?.let {
+            cambiarInterfaz(View.INVISIBLE, View.VISIBLE, it.displayName ?: "Bienvenido")
         }
     }
 }
