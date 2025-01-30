@@ -31,7 +31,7 @@ class CIntentExplicitoParametros : AppCompatActivity() {
         } else {
             Log.e("CIntentExplicitoParametros", "Entrenador es NULL")
         }
-        
+
         // Depuración con Logcat
         Log.d("CIntentExplicitoParametros", "Recibido -> Nombre: $nombre, Apellido: $apellido, Edad: $edad, Entrenador: ${entrenador.toString()}")
 

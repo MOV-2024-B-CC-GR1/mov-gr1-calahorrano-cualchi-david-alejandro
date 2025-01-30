@@ -3,6 +3,7 @@ package com.example.ccgr12024b_dacc
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -11,9 +12,12 @@ import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
+import android.Manifest
 
 class MainActivity : AppCompatActivity() {
     fun mostrarSnackbar(texto: String){
@@ -88,14 +92,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         val botonImplicito = findViewById<Button>(R.id.btn_ir_intent_implicito)
-        botonImplicito
-            .setOnClickListener {
+        botonImplicito.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED) {
+
                 val intentConRespuesta = Intent(
                     Intent.ACTION_PICK,
                     ContactsContract.CommonDataKinds.Phone.CONTENT_URI
                 )
                 callbackContenidoIntentImplicito.launch(intentConRespuesta)
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.READ_CONTACTS), 1)
             }
+        }
 
         val botonExplicito = findViewById<Button>(R.id.btn_ir_intent_explicito)
         botonExplicito
