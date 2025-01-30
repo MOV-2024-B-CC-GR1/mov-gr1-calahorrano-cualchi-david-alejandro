@@ -1,50 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
-    <Button
-        android:id="@+id/btn_dar_like"
-        android:layout_width="wrap_content"
+    <!-- Nombre del entrenador -->
+    <TextView
+        android:id="@+id/tv_nombre"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Dar like"
-        app:layout_constraintEnd_toEndOf="@+id/tv_likes"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="@+id/tv_likes"
-        app:layout_constraintTop_toBottomOf="@+id/tv_likes" />
+        android:text="Nombre"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_likes"
+        android:layout_marginEnd="8dp"/>
 
+    <!-- Contador de likes -->
     <TextView
         android:id="@+id/tv_likes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_blue_dark"
+        app:layout_constraintTop_toTopOf="@+id/tv_nombre"
+        app:layout_constraintStart_toEndOf="@+id/tv_nombre"
+        app:layout_constraintEnd_toStartOf="@+id/tv_descripcion"/>
 
-    <TextView
-        android:id="@+id/tv_nombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:text="Nombre"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_likes"
-        app:layout_constraintEnd_toStartOf="@+id/tv_likes"
-        app:layout_constraintTop_toTopOf="@+id/tv_likes"
-        app:layout_constraintVertical_bias="0.0" />
-
+    <!-- Descripción del entrenador -->
     <TextView
         android:id="@+id/tv_descripcion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Descripción"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@+id/tv_nombre"
+        app:layout_constraintStart_toEndOf="@+id/tv_likes"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Botón para dar like -->
+    <Button
+        android:id="@+id/btn_dar_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:text="Descripcion"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_likes"
-        app:layout_constraintStart_toEndOf="@+id/tv_likes"
-        app:layout_constraintTop_toTopOf="@+id/tv_likes"
-        app:layout_constraintVertical_bias="1.0" />
+        android:text="Dar like"
+        android:textSize="14sp"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nombre"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

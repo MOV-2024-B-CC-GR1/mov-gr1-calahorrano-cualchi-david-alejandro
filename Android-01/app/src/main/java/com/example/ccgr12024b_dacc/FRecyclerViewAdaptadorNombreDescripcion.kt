@@ -12,31 +12,27 @@ class FRecyclerViewAdaptadorNombreDescripcion(
     private val lista: ArrayList<BEntrenador>,
     private val recyclerView: RecyclerView
 ): RecyclerView.Adapter<FRecyclerViewAdaptadorNombreDescripcion.MyViewHolder>() {
-    inner class MyViewHolder(
-        view: View
-    ): RecyclerView.ViewHolder(view){
-        val nombreTextView: TextView
-        val descripcionTextView: TextView
-        val likesTextView: TextView
-        val accionBoton: Button
+    inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view){
+        val nombreTextView: TextView = view.findViewById(R.id.tv_nombre)
+        val descripcionTextView: TextView = view.findViewById(R.id.tv_descripcion)
+        val likesTextView: TextView = view.findViewById(R.id.tv_likes)
+        val accionBoton: Button = view.findViewById(R.id.btn_dar_like)
         var numeroLikes = 0
+
         init{
-            nombreTextView = view.findViewById<TextView>(R.id.tv_nombre)
-            descripcionTextView = view.findViewById<TextView>(R.id.tv_descripcion)
-            likesTextView = view.findViewById<TextView>(R.id.tv_likes)
-            accionBoton = view.findViewById<Button>(R.id.btn_dar_like)
-            //accionBoton.setOnClickListener { anadirLikes() }
+            accionBoton.setOnClickListener { anadirLikes() } // Activar el botón para dar like
         }
-        fun anadirLikes(){
-            numeroLikes = numeroLikes + 1
+        fun anadirLikes() {
+            numeroLikes++
             likesTextView.text = numeroLikes.toString()
-            //contexto.aumentarTotalLikes()
+            contexto.aumentarTotalLikes() // Actualizar el total de likes en FRecyclerView
         }
     }
 
     // Setear el layout que vamos a utilizar
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_vista, parent, false)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.recycler_view_vista, parent, false)
         return MyViewHolder(itemView)
     }
 

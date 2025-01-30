@@ -122,12 +122,14 @@ class MainActivity : AppCompatActivity() {
         val botonIrSqlite = findViewById<Button>(R.id.btn_sqlite)
         botonIrSqlite
             .setOnClickListener {
+                Snackbar.make(it, "Abriendo SQLite", Snackbar.LENGTH_SHORT).show()
                 irActividad(ECrudEntrenador::class.java)
             }
 
         val botonIrRecyclerView = findViewById<Button>(R.id.btn_recycler_view)
         botonIrRecyclerView
             .setOnClickListener {
+                Snackbar.make(it, "Abriendo RecyclerView", Snackbar.LENGTH_SHORT).show()
                 irActividad(FRecyclerView::class.java)
             }
 
