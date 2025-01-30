@@ -7,4 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".ACicloVida">
 
+    <TextView
+        android:id="@+id/tv_ciclo_vida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ciclo de Vida de una Actividad"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_regresar" />
+
+    <Button
+        android:id="@+id/btn_regresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Regresar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

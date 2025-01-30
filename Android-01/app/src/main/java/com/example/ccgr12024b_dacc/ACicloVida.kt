@@ -3,6 +3,8 @@ package com.example.ccgr12024b_dacc
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.provider.CalendarContract.Instances
+import android.util.Log
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,31 +21,42 @@ class ACicloVida : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        Log.d("CICLO_VIDA", "onCreate ejecutado")
         mostrarSnackbar("onCreate");
+
+        val botonRegresar = findViewById<Button>(R.id.btn_regresar)
+        botonRegresar.setOnClickListener {
+            finish() // Cierra esta actividad y regresa a la anterior
+        }
     }
 
     override fun onStart() {
         super.onStart()
+        Log.d("CICLO_VIDA", "onStart ejecutado")
         mostrarSnackbar("OnStart");
     }
 
     override fun onResume() {
         super.onResume()
+        Log.d("CICLO_VIDA", "onResume ejecutado")
         mostrarSnackbar("OnResumen")
     }
 
     override fun onRestart() {
         super.onRestart()
+        Log.d("CICLO_VIDA", "onRestart ejecutado")
         mostrarSnackbar("OnRestart")
     }
 
     override fun onPause() {
         super.onPause()
+        Log.d("CICLO_VIDA", "onPause ejecutado")
         mostrarSnackbar("OnPause")
     }
 
     override fun onStop() {
         super.onStop()
+        Log.d("CICLO_VIDA", "onStop ejecutado")
         mostrarSnackbar("OnStop")
     }
 
@@ -70,8 +83,7 @@ class ACicloVida : AppCompatActivity() {
     // Thursday, 28th November, 2024. Topic: Introducción a la creación de Interfaces Básicas en Android Studio
     var textoGlobal = "";
     fun mostrarSnackbar(text: String) {
-        textoGlobal += text;
-        val snack = Snackbar.make(findViewById(R.id.cl_ciclo_vida), textoGlobal, Snackbar.LENGTH_INDEFINITE);
-        snack.show();
+        val snack = Snackbar.make(findViewById(R.id.cl_ciclo_vida), text, Snackbar.LENGTH_SHORT)
+        snack.show()
     }
 }
