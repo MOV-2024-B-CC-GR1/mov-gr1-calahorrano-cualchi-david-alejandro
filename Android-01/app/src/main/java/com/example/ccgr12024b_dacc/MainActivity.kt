@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,12 +27,12 @@ class MainActivity : AppCompatActivity() {
 
     val callbackContenidoIntentExplicito = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ){
-            result ->
-        if(result.resultCode == Activity.RESULT_OK){
-            if(result.data != null){
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            if (result.data != null) {
                 val data = result.data?.getStringExtra("nombreModificado")
-                mostrarSnackbar("$data")
+                Log.d("MainActivity", "Respuesta recibida: $data")
+                mostrarSnackbar("Respuesta recibida: $data")
             }
         }
     }
@@ -99,13 +100,11 @@ class MainActivity : AppCompatActivity() {
         val botonExplicito = findViewById<Button>(R.id.btn_ir_intent_explicito)
         botonExplicito
             .setOnClickListener {
-                val intentExplicito = Intent(
-                    this, CIntentExplicitoParametros::class.java
-                )
+                val intentExplicito = Intent(this, CIntentExplicitoParametros::class.java)
                 intentExplicito.putExtra("nombre", "David")
                 intentExplicito.putExtra("apellido", "Calahorrano")
                 intentExplicito.putExtra("edad", 22)
-                intentExplicito.putExtra("entrenador", BEntrenador(1,"Adrian","Ejemplo"))
+                intentExplicito.putExtra("entrenador", BEntrenador(1, "Adrian", "Ejemplo")) // Asegurar que sea Parcelable
                 callbackContenidoIntentExplicito.launch(intentExplicito)
             }
 
