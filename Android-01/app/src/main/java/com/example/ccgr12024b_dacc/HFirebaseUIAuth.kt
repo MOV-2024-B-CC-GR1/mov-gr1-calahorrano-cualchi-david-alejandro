@@ -15,40 +15,6 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 
 class HFirebaseUIAuth : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_hfirebase_uiauth)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        val btnLogin = findViewById<Button>(R.id.btn_login_firebase)
-        btnLogin.setOnClickListener {
-            val providers = arrayListOf(
-                AuthUI.IdpConfig.EmailBuilder().build()
-            )
-            val logearseIntent = AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .build()
-            respuestaLoginUiAuth.launch(logearseIntent)
-        }
-
-        val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
-        btnLogout.setOnClickListener {
-            cambiarInterfaz()
-            FirebaseAuth.getInstance().signOut()
-        }
-
-        val usuario = FirebaseAuth.getInstance().currentUser
-        if(usuario != null) {
-            cambiarInterfaz(View.INVISIBLE, View.VISIBLE, usuario.displayName!!)
-        }
-    }
-
     private val respuestaLoginUiAuth = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
     ){
@@ -83,9 +49,35 @@ class HFirebaseUIAuth : AppCompatActivity() {
     }
 
     // Registramos en nuestro sistema y el enviamos correco, etc...
-    fun registrarUsuarioPorPrimeraVez(respuesta: IdpResponse) {}
+    fun registrarUsuarioPorPrimeraVez(usuario: IdpResponse){}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_hfirebase_uiauth)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
-
+        val btnLogin = findViewById<Button>(R.id.btn_login_firebase)
+        btnLogin.setOnClickListener {
+            val providers = arrayListOf(
+                AuthUI.IdpConfig.EmailBuilder().build()
+            )
+            val logearseIntent = AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers).build()
+            respuestaLoginUiAuth.launch(logearseIntent)
+        }
+        val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
+        btnLogout.setOnClickListener {
+            cambiarInterfaz()
+            FirebaseAuth.getInstance().signOut()
+        }
+        val usuario = FirebaseAuth.getInstance().currentUser
+        if(usuario !=null) {
+            cambiarInterfaz(View.INVISIBLE, View.VISIBLE, usuario.displayName!!)
+        }
     }
-
 }
