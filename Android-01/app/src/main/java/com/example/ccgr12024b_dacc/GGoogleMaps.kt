@@ -19,7 +19,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolygonOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -102,8 +105,51 @@ class GGoogleMaps : AppCompatActivity() {
                 mapa = googleMap
                 establecerConfiguracionMapa()
                 habilitarUbicacionUsuario()
+                moverQuicentro()
+                anadirPolilinea()
+                anadirPoligono()
             }
         }
+    }
+
+    fun moverQuicentro(){
+        val quicentro = LatLng(-0.17584202368791677, -78.4802112850314)
+        val titulo = "Quicentro"
+        val marcadorQuicentro = anadirMarcador(quicentro, titulo)
+        marcadorQuicentro.tag = titulo
+        moverCamaraConZoom(quicentro)
+    }
+
+    fun anadirPolilinea(){
+        with(mapa){
+            val polilinea = mapa.addPolyline( PolylineOptions().clickable(true)
+                .add(
+                    LatLng(-0.17791267925471754, -78.48185816127831),
+                    LatLng(-0.18019791013168018, -78.48539867691878),
+                    LatLng(-0.1822149211841061, -78.48320999452285)
+                )
+            )
+            polilinea.tag = "polilinea-uno"
+        }
+    }
+
+    fun anadirPoligono(){
+        with(mapa){
+            val poligono = mapa.addPolygon(
+                PolygonOptions()
+                    .clickable(true)
+                    .add(
+                        LatLng(-0.17810579736798682, -78.48025956482248),
+                        LatLng(-0.18047685848208925, -78.47937980033),
+                        LatLng(-0.17664668268438008, -78.4796694788824),
+                    )
+            )
+            poligono.tag = "poligono-uno"
+        }
+    }
+
+    fun anadirMarcador(latLang: LatLng, title: String): Marker {
+        return mapa.addMarker(MarkerOptions().position(latLang).title(title))!!
     }
 
     @SuppressLint("MissingPermission")
